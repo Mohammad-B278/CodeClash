@@ -1,3 +1,57 @@
+//PHP backend setup
+const instanceId = localStorage.getItem("instanceId") || Date.now().toString();
+localStorage.setItem("instanceId", instanceId);
+
+async function syncData(status, time) {
+    try {
+        const response = await fetch("sync.php", {
+            method: "POST",
+            body: new URLSearchParams({ instanceId, status, time }),
+        });
+        const result = await response.json();
+        console.log("Sync Data Response:", result);
+        if (!result.success) {
+            console.error("Error syncing data:", result.error);
+        }
+        return result;
+    } catch (error) {
+        console.error("Sync Data Error:", error);
+    }
+}
+
+
+async function fetchLeaderboard() {
+    const response = await fetch("sync.php");
+    const data = await response.json();
+    const leaderboard = Object.entries(data)
+        .sort((a, b) => a[1].time - b[1].time)
+        .map(([id, info], index) => `${index + 1}. Instance ${id} - Time: ${info.time}s`);
+    document.getElementById("test-results").innerText = leaderboard.join("\n");
+}
+
+async function checkForCompletion() {
+    const pollInterval = 1000; // Interval in milliseconds to check for completion
+
+    async function poll() {
+        const response = await fetch("sync.php");
+        const data = await response.json();
+        const allSolved = Object.values(data).every(d => d.status === "solved");
+
+        if (allSolved) {
+            alert("All instances solved! Showing leaderboard...");
+            fetchLeaderboard();
+        } else {
+            // If not all solved, check again after the interval
+            setTimeout(poll, pollInterval);
+        }
+    }
+
+    // Start the polling process
+    await poll();
+}
+
+syncData("unsolved", 0);
+
 // Editor init
 require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs' } });
 
@@ -168,6 +222,9 @@ test_solution()
     if (success) {
         alert("All test cases passed successfully!");
         stopTimer();
+        const time = elapsedTime;
+        await syncData("solved", time);
+        await checkForCompletion();
     } else {
         alert("Some test cases failed. Check the results for details.");
     }
