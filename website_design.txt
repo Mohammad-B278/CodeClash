@@ -1,8 +1,0 @@
-
-Colour Scheme:
-#D7BCE8 purple
-#C0DA74 light green
-#5EB1BF light blue
-#011936 dark blue
-#465362 grey
-
