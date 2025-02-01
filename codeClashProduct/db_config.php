@@ -19,9 +19,37 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// If connected successfully, you can perform queries
-echo "Connected successfully";
+// Fetch problem data from the 'questions' table (assuming id=20 for Problem 20)
+$sql = "SELECT title, descriptions, example FROM questions WHERE id = 1";
+$result = $conn->query($sql);
 
-// Close the connection when done
+// Check if the data exists
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    echo "<pre>";
+    print_r($row);
+    echo "</pre>";
+} else {
+    echo "No question found!";
+}
+
+
+// Fetch the test cases from the 'test_cases' table for Problem ID 20
+$sql_test_cases = "SELECT input, expected_output FROM test_cases WHERE question_id = 20";
+$result_test_cases = $conn->query($sql_test_cases);
+
+// Check if the data exists
+if ($result_test_cases->num_rows > 0) {
+    $test_cases = [];
+    while ($row = $result_test_cases->fetch_assoc()) {
+        $test_cases[] = [
+            'input' => $row['input'],
+            'expected_output' => $row['expected_output']
+        ];
+    }
+} else {
+    $test_cases = [];
+}
+
 $conn->close();
 ?>
