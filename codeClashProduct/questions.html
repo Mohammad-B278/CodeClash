@@ -21,14 +21,17 @@
         <p id="timer">00:00:00</p>
     </div>
 
+
     <div id="container">
         <div id="problem-section">
-            <h2>Problem Description</h2>
-            <p>Given an integer array <code>nums</code>, return the sum of all elements.</p>
+            <h2>Problem Description: <?php echo $title; ?></h2>
+            <p><?php echo $description; ?></p>
             <h3>Example:</h3>
-            <pre><code>Input: nums = [1, 2, 3]
-Output: 6</code></pre>
+            <pre><code><?php echo $example; ?></code></pre>
+            <h4>Difficulty:  <?php echo $difficulty; ?></h4>
         </div>
+
+
         <div id="editor-section">
             <h2>Code Editor</h2>
             <select id="language-select">
@@ -51,17 +54,26 @@ Output: 6</code></pre>
                 <option value="elixir">Elixir</option>
                 <option value="erlang">Erlang</option>
                 <option value="racket">Racket</option>
-
-
             </select>
             <div id="editor"></div>
             <button id="run-code">Run Code</button>
         </div>
 
+
         <div id="testcase-section">
             <h2>Test Cases</h2>
-            <textarea id="testcases">[1, 2, 3]
-[4, 5, 6]</textarea>
+            <textarea id="testcases">
+                <?php
+                if (!empty($test_cases)) {
+                    foreach ($test_cases as $test_case) {
+                        echo "Input: " . $test_case['input'] . "\n";
+                        echo "Expected Output: " . $test_case['expected_output'] . "\n\n";
+                    }
+                } else {
+                    echo "No test cases available.";
+                }
+                ?>
+            </textarea>
             <button id="run-tests">Run Test Cases</button>
             <div id="test-results"></div>
         </div>
