@@ -16,12 +16,6 @@
     <script src="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js"></script>
 </head>
 <body>
-    <div id="timer-container">
-        <h3>Timer</h3>
-        <p id="timer">00:00:00</p>
-    </div>
-
-
     <div id="container">
         <div id="problem-section">
             <h2>Problem Description: <?php echo $title; ?></h2>
@@ -35,25 +29,9 @@
         <div id="editor-section">
             <h2>Code Editor</h2>
             <select id="language-select">
-                <option value="python">Python</option>
                 <option value="python3">Python3</option>
                 <option value="javascript">JavaScript</option>
-                <option value="java">Java</option>
-                <option value="csharp">C#</option>
                 <option value="cpp">C++</option>
-                <option value="c">C</option>
-                <option value="typeScript">TypeScript</option>
-                <option value="php">PHP</option>
-                <option value="swift">Swift</option>
-                <option value="go">Go</option>
-                <option value="kotlin">Kotlin</option>
-                <option value="rust">Rust</option>
-                <option value="dart">Dart</option>
-                <option value="ruby">Ruby</option>
-                <option value="bash">Bash</option>
-                <option value="elixir">Elixir</option>
-                <option value="erlang">Erlang</option>
-                <option value="racket">Racket</option>
             </select>
             <div id="editor"></div>
             <button id="run-code">Run Code</button>
