@@ -1,60 +1,3 @@
-/*Node.js is used to fetch the data from table.sql(PostgreSQL)
-to generate code templates dynamically */
-
-//PHP backend setup
-const instanceId = localStorage.getItem("instanceId") || Date.now().toString();
-localStorage.setItem("instanceId", instanceId);
-
-async function syncData(status, time) {
-    try {
-        const response = await fetch("sync.php", {
-            method: "POST",
-            body: new URLSearchParams({ instanceId, status, time }),
-        });
-        const result = await response.json();
-        console.log("Sync Data Response:", result);
-        if (!result.success) {
-            console.error("Error syncing data:", result.error);
-        }
-        return result;
-    } catch (error) {
-        console.error("Sync Data Error:", error);
-    }
-}
-
-
-async function fetchLeaderboard() {
-    const response = await fetch("sync.php");
-    const data = await response.json();
-    const leaderboard = Object.entries(data)
-        .sort((a, b) => a[1].time - b[1].time)
-        .map(([id, info], index) => `${index + 1}. Instance ${id} - Time: ${info.time}s`);
-    document.getElementById("test-results").innerText = leaderboard.join("\n");
-}
-
-async function checkForCompletion() {
-    const pollInterval = 1000; // Interval in milliseconds to check for completion
-
-    async function poll() {
-        const response = await fetch("sync.php");
-        const data = await response.json();
-        const allSolved = Object.values(data).every(d => d.status === "solved");
-
-        if (allSolved) {
-            alert("All instances solved! Showing leaderboard...");
-            fetchLeaderboard();
-        } else {
-            // If not all solved, check again after the interval
-            setTimeout(poll, pollInterval);
-        }
-    }
-
-    // Start the polling process
-    await poll();
-}
-
-syncData("unsolved", 0);
-
 // Editor init
 require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs' } });
 
@@ -78,29 +21,6 @@ async function loadPyodideAndPackages() {
 let timerInterval;
 let elapsedTime = 0;
 
-// Timer
-function formatTime(seconds) {
-    const hrs = Math.floor(seconds / 3600);
-    const mins = Math.floor((seconds % 3600) / 60);
-    const secs = seconds % 60;
-    return `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-}
-
-function startTimer() {
-    clearInterval(timerInterval);
-    elapsedTime = 0;
-    document.getElementById('timer').innerText = formatTime(elapsedTime);
-    timerInterval = setInterval(() => {
-        elapsedTime++;
-        document.getElementById('timer').innerText = formatTime(elapsedTime);
-    }, 1000);
-}
-
-function stopTimer() {
-    clearInterval(timerInterval);
-}
-
-startTimer();
 loadPyodideAndPackages();
 
 // Language change
@@ -108,30 +28,12 @@ document.getElementById('language-select').addEventListener('change', function (
     const language = e.target.value;
     monaco.editor.setModelLanguage(editor.getModel(), language);
     const templates = {
-        python: `def {function_name}({parameters}):\n    # Write your code here\n    pass`,
         python3: `def {function_name}({parameters}):\n    # Write your code here\n    pass`,
         javascript: `function {function_name}({parameters}) {\n    // Write your code here\n}`,
-        java: `public class Solution {\n    public static {return_type} {function_name}({parameters}) {\n        // Write your code here\n    }\n}`,
-        csharp: `using System;\nclass Program {\n    static {return_type} {function_name}({parameters}) {\n        // Write your code here\n    }\n}`,
         cpp: `#include <iostream>\nusing namespace std;\n\n{return_type} {function_name}({parameters}) {\n    // Write your code here\n}`,
-        c: `#include <stdio.h>\n\n{return_type} {function_name}({parameters}) {\n    // Write your code here\n}`,
-        typeScript: `function {function_name}({parameters}): {return_type} {\n    // Write your code here\n}`,
-        php: `<?php\nfunction {function_name}({parameters}) {\n    // Write your code here\n}\n?>`,
-        swift: `func {function_name}({parameters}) -> {return_type} {\n    // Write your code here\n}`,
-        go: `package main\nimport "fmt"\nfunc {function_name}({parameters}) {return_type} {\n    // Write your code here\n}`,
-        kotlin: `fun {function_name}({parameters}): {return_type} {\n    // Write your code here\n}`,
-        rust: `fn {function_name}({parameters}) -> {return_type} {\n    // Write your code here\n}`,
-        dart: `{return_type} {function_name}({parameters}) {\n    // Write your code here\n}`,
-        ruby: `def {function_name}({parameters})\n    # Write your code here\nend`,
-        bash: `function {function_name}() {\n    # Write your code here\n}`,
-        elixir: `defmodule Solution do\n    def {function_name}({parameters}) do\n        # Write your code here\n    end\nend`,
-        erlang: `{function_name}({parameters}) ->\n    % Write your code here.`,
-        racket: `(define ({function_name} {parameters})\n  ;; Write your code here\n)`,
     };
     editor.setValue(templates[language]);
 });
-
-// Setting templates for each questions (e.g if you code in python3 the initial function woulde be def sort_num(): )
 
 function getTemplate(questionId, language) {
     const question = questions[questionId];
@@ -144,26 +46,12 @@ function getTemplate(questionId, language) {
     return template;
 }
 
-
-
-// Code running
+// Code running (PISTON API LOGIC HERE!!!)
 document.getElementById('run-code').addEventListener('click', async function () {
     const language = document.getElementById('language-select').value;
     const code = editor.getValue();
 
-    // Send request to PHP backend for execution
-    const response = await fetch('run_code.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ language, code })
-    });
-
-    const result = await response.json();
-    document.getElementById('test-results').innerText = result.run.stdout || result.run.stderr;
-});
-
-
-    // Pre-made inputs + answers
+    // Pre-made inputs + answers (TESTCASES FETCHED FROM DATABASE HERE!!!)
     const testInputs = [
         [1, 2, 3],
         [4, 5, 6],
@@ -171,7 +59,7 @@ document.getElementById('run-code').addEventListener('click', async function () 
         [0, 0],
         [-123, 4, 123, -4],
     ];
-    const expectedOutputs = [6, 15, -6, 0, 0];
+    const expectedOutputs = [6, 15, -6, 0, 0]; // Expected outputs fetched from the database here!!!
 
     let success = true;
     const results = [];
@@ -312,5 +200,3 @@ sumArray(nums)
 
     document.getElementById('test-results').innerText = results.join("\n\n");
 });
-
-
