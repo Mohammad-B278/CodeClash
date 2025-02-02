@@ -18,9 +18,6 @@ async function loadPyodideAndPackages() {
     console.log("Pyodide loaded");
 }
 
-let timerInterval;
-let elapsedTime = 0;
-
 loadPyodideAndPackages();
 
 // Language change
@@ -28,7 +25,7 @@ document.getElementById('language-select').addEventListener('change', function (
     const language = e.target.value;
     monaco.editor.setModelLanguage(editor.getModel(), language);
     const templates = {
-        python3: `def {function_name}({parameters}):\n    # Write your code here\n    pass`,
+        python: `def {function_name}({parameters}):\n    # Write your code here\n    pass`,
         javascript: `function {function_name}({parameters}) {\n    // Write your code here\n}`,
         cpp: `#include <iostream>\nusing namespace std;\n\n{return_type} {function_name}({parameters}) {\n    // Write your code here\n}`,
     };
@@ -41,7 +38,8 @@ function getTemplate(questionId, language) {
 
     template = template.replace("{function_name}", question.function_name);
     template = template.replace("{parameters}", question.parameters || "");
-    template = template.replace("return_type", question.return_type || "void");  // Default for statically typed languages
+    template = template.replace("return_type", question.return_type || "void");  // Default for statically typed languages 
+    //!!!NEEDS TO BE CHANGED DEPENDING ON A PROBLEM. MOST LIKELY WE'LL END UP ADDING FUNCTION NAME AND PARAMETERS TO THE DATABASE FOR THE QUESTION (AND RETURN TYPE CAN BE A PART OF THE FUNCTION NAME)!!!
 
     return template;
 }
@@ -51,15 +49,29 @@ document.getElementById('run-code').addEventListener('click', async function () 
     const language = document.getElementById('language-select').value;
     const code = editor.getValue();
 
-    // Pre-made inputs + answers (TESTCASES FETCHED FROM DATABASE HERE!!!)
-    const testInputs = [
-        [1, 2, 3],
-        [4, 5, 6],
-        [-1, -2, -3],
-        [0, 0],
-        [-123, 4, 123, -4],
-    ];
-    const expectedOutputs = [6, 15, -6, 0, 0]; // Expected outputs fetched from the database here!!!
+    // Fetching test cases
+    const params = new URLSearchParams(window.location.search);
+    const questionId = params.get("id");
+
+    if (!questionId) {
+        alert("No question selected!");
+        return;
+    }
+
+    const response = await fetch(`fetch_question.php?id=${questionId}`);
+    const data = await response.json();
+
+    if (data.error) {
+        alert(data.error);
+        return;
+    }
+
+    // Transforming test cases and outputs
+    const testInputs = data.test_cases.map(tc => tc.input);  // Test case inputs
+    const expectedOutputs = data.test_cases.map(tc => tc.expected_output);  // Expected outputs
+
+    console.log("Test Inputs:", testInputs);
+    console.log("Expected Outputs:", expectedOutputs);
 
     let success = true;
     const results = [];
@@ -155,10 +167,6 @@ test_solution()
     // Display success message
     if (success) {
         alert("All test cases passed successfully!");
-        stopTimer();
-        const time = elapsedTime;
-        await syncData("solved", time);
-        await checkForCompletion();
     } else {
         alert("Some test cases failed. Check the results for details.");
     }
