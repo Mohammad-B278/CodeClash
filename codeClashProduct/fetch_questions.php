@@ -3,7 +3,7 @@ header("Content-Type: application/json"); // Ensure JSON response
 include "db_config.php"; // Include database connection
 
 // Fetch all questions
-$sql = "SELECT id, title, description, example FROM questions";
+$sql = "SELECT id, title, description, example, difficulty FROM questions";
 $result = $conn->query($sql);
 
 $questions = [];

@@ -67,7 +67,7 @@
             document.getElementById("problem-description").innerText = data.description;
             document.getElementById("problem-example").innerText = `Input: ${data.example.input}\nOutput: ${data.example.output}`;
 
-            document.getElementById("testcases").value = data.test_cases.map(tc => tc.input).join("\n"); //For now like this, but obviously these 
+            //document.getElementById("testcases").value = data.test_cases.map(tc => tc.input).join("\n"); //For now like this, but obviously these 
             // are actual test-cases we will use to run the code, so they shouldn't be there; this field will be empty in the future, keeping for reference just in case
         }
 

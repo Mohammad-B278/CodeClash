@@ -6,7 +6,7 @@
 
 
 // Database credentials (Same for everyone!!!)
-$database_host = "dbhost.cs.man.ac.uk";   // Same for all teammates)
+$database_host = "dbhost.cs.man.ac.uk";   // Same for all teammates) virus?
 $database_user = "p10584tl";  // Shared
 $database_pass = "Vy45RUxOCovOnAHr7hjaka8GUXn52UupiuRqhRrHacQ"; // Shared
 $database_name = "2024_comp10120_cm13";  //Shared
