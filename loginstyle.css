@@ -59,6 +59,24 @@ body {
     background: rgba(255, 255, 255, 0.1); 
     border-radius: 10px;
 }
+
+.signup-box {
+    position: absolute;
+    width: 385px;
+    height: auto;
+    padding: 20px 30px;
+    color: white;
+    text-align: left;
+    font-size: 16px;
+  
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    
+    background: rgba(255, 255, 255, 0.1); 
+    border-radius: 10px;
+}
+
 input {
     width: 100%;  
     max-width: 350px; 
@@ -83,5 +101,5 @@ h2 {
 }
 
 .login-btn:hover {
-    background-color: #4a99a5;
+    background-color: #0e0f1a;
 }
