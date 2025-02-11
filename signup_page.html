@@ -35,11 +35,13 @@
 
             <label for="email">Email:</label>
             <input type="text" id="email" name="email"
-            pattern="[a-zA-Z0-9._%+]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,}" required>
+            pattern="[a-zA-Z0-9._%+]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,}" 
+            title="Enter a valid email address (e.g., user@example.com)"
+            required>
 
             <label for="password">Password:</label>
             <input type="password" id="password" name="password"
-            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}"
+            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&]).{8,}"
             title="Must contain at least 8 characters, one uppercase, one lowercase, one number, and one special character."
             required>
             
