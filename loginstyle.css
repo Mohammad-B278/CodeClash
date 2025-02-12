@@ -103,3 +103,31 @@ h2 {
 .login-btn:hover {
     background-color: #0e0f1a;
 }
+td {
+    background-color: #A69CE5;
+  }
+
+  #infoTable {
+    margin: auto;
+    margin-top: 0;
+    margin-bottom: 30px;
+    border-spacing: 20px;
+    background-color: #A69CE5;
+  }
+  
+  #logoImage {
+    width: 400px;
+    
+  }
+  
+  #iconImage {
+    width: 200px;
+    box-shadow: 0 0 50px 0 rgba(0, 0, 0, 0.9);
+    border-radius: 50% 50%;
+    
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2.5em;
+  }
