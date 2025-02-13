@@ -2,20 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="loginstyle.css">
+    <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo"><>CodeClash</div>
+        <div class="logo">
+            <img src="logo1.png" alt="CodeClash Logo">
+        </div>
         <ul class="nav-links">
             <li><a href="homepage.html">Home</a></li>
             <li><a href="#">Online PvP</a></li>
             <li><a href="#">Challenges</a></li>
-            <li><a href="#">Leaderboard</a></li>
-            <li><a href="#">Profile</a></li>
+            <li><a href="leaderboard.html">Leaderboard</a></li>
+            <li><a href="profile_page.html">Profile</a></li>
             <li><a href="login_page.html">Login</a></li>
             <li><a href="signup_page.html">Sign Up</a></li>
         </ul>
@@ -31,7 +33,7 @@
 
             <label for="password">Password:</label>
             <input type="password" id="password" name="password"
-            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&]).{8,}"
+            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&_]).{8,}"
             title="Must contain at least 8 characters, one uppercase, one lowercase, one number, and one special character."
             required>
             
@@ -39,8 +41,6 @@
             <br><br>
             <div class="g-recaptcha" data-sitekey="6Le0n9IqAAAAAH1b3R79CiJm0mheXS4XeOEpTQ2K"></div>
         </form>          
-        
-        <div class="nav-links"><a href="signup_page.html">Sign up here!</a></div>
     </div>
 </body>
 </html>

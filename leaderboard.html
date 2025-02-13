@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+</head>
+<script>
+    function generate(time) {
+        count = 1;
+        const table = document.getElementById("boardbody");
+        const size = table.rows.length;
+        for (let k = 0; k < size; k++){
+            table.rows[0].remove();
+        }
+        for (let i = 0; i < 100; i++) {
+            const row = table.insertRow();            
+            for (let j = 0; j < 4; j++) {
+                const cell = row.insertCell();
+                if (j == 0) {
+                    cell.innerHTML = count;
+                    count = count + 1;
+                }
+            }
+        }
+        button = document.getElementById("dropdown");
+        button.innerHTML = time;
+    }
+</script>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logo1.png" alt="CodeClash Logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="homepage.html">Home</a></li>
+            <li><a href="#">Online PvP</a></li>
+            <li><a href="#">Challenges</a></li>
+            <li><a href="leaderboard.html">Leaderboard</a></li>
+            <li><a href="profile_page.html">Profile</a></li>
+            <li><a href="login_page.html">Login</a></li>
+            <li><a href="signup_page.html">Sign Up</a></li>
+        </ul>
+    </nav>
+    <h2>Leaderboard</h2>
+    <p>Complete challenges to rise through the ranks and take your spot on the leaderboard!</p>
+    <div class="dropdown">
+        <button class="dropbtn" id="dropdown">Leaderboard</button>
+        <div class="dropdown-content">
+            <a href="#" onclick="generate('Today')">Today</a>
+            <a href="#" onclick="generate('This Week')">This Week</a>
+            <a href="#" onclick="generate('All Time')">All Time</a>
+        </div>
+    </div>
+    <div class="board">
+        <table>
+            <thead>
+                <tr>
+                    <th>Position</th>
+                    <th>Username</th>
+                    <th>Score</th>
+                    <th>Time Spent</th>
+                </tr>
+            </thead>
+            <tbody id="boardbody">
+            </tbody>
+        </table>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logo1.png" alt="CodeClash Logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="homepage.html">Home</a></li>
+            <li><a href="#">Online PvP</a></li>
+            <li><a href="#">Challenges</a></li>
+            <li><a href="leaderboard.html">Leaderboard</a></li>
+            <li><a href="profile_page.html">Profile</a></li>
+            <li><a href="login_page.html">Login</a></li>
+            <li><a href="signup_page.html">Sign Up</a></li>
+        </ul>
+    </nav>
+    <div class="profile-card">
+        <div class="profile-info">
+            <div class="profile-pic-container">
+                <img src="Blank-profile-pic.jpg" alt="Profile Picture" class="profile-pic">
+                <input type="file" id="profile-upload" style="display: none;">
+                <label for="profile-upload" class="upload-btn">Change Profile</label>
+            </div>
+            <div class="user-details">
+                <h2>Hello, <span class="username">Username</span></h2>
+            </div>
+        </div>
+        <div class="stats">
+            <div class="stat"><strong>25</strong><br> Total Challenges</div>
+            <div class="stat"><strong>12</strong><br> Wins</div>
+            <div class="stat"><strong>13</strong><br> Losses</div>
+            <div class="stat"><strong>20</strong><br> Solutions Solved</div>
+            <div class="stat"><strong>3</strong><br> Longest Win Streak</div>
+            <div class="stat"><strong>1hr 24min 7s</strong><br> Longest Coding Session</div>
+        </div>
+    </div> 
+
+    <!-- Flexbox container -->
+    <div class="flexbox-container">
+        <div class="flexbox-achievement">
+            <p>Achievement Box</p>
+        </div>
+        <div class="flexbox-something">
+            <p>Box for something else</p>
+        </div> 
+        <div class="flexbox-leaderboard">
+            <p>Leaderboard</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
