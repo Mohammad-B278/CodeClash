@@ -10,8 +10,8 @@ body {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: 5px 20px;
-    background: #5EB1BF;
+    padding: 10px 20px;
+    background: #216382;
     color: white;
     height: 40px;
 
@@ -80,7 +80,7 @@ body {
 input {
     width: 100%;  
     max-width: 350px; 
-    background: #5EB1BF;
+    background: #216382;
     color: white;
     font-size: 20px;
 }
@@ -105,29 +105,11 @@ h2 {
 }
 td {
     background-color: #A69CE5;
-  }
-
-  #infoTable {
+}
+#infoTable{
     margin: auto;
     margin-top: 0;
     margin-bottom: 30px;
     border-spacing: 20px;
     background-color: #A69CE5;
-  }
-  
-  #logoImage {
-    width: 400px;
-    
-  }
-  
-  #iconImage {
-    width: 200px;
-    box-shadow: 0 0 50px 0 rgba(0, 0, 0, 0.9);
-    border-radius: 50% 50%;
-    
-  }
-  h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 2.5em;
-  }
+}
