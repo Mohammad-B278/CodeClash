@@ -6,6 +6,7 @@ body {
     padding: 0;
 
 }
+/* Navigation Bar Stylong */
 .navbar {
     display: flex;
     justify-content: flex-end;
@@ -42,6 +43,7 @@ body {
 .nav-links a:hover {
     color: #D7BCE8;
 }
+/* Login box styling */
 .login-box {
     position: absolute;
     width: 385px;
@@ -56,7 +58,7 @@ body {
     background: rgba(255, 255, 255, 0.1); 
     border-radius: 10px;
 }
-
+/* Sign Up box styling */
 .signup-box {
     position: absolute;
     width: 385px;
@@ -71,7 +73,7 @@ body {
     background: rgba(255, 255, 255, 0.1); 
     border-radius: 10px;
 }
-
+/* Styling for the text boxes for user input */
 input {
     width: 100%;  
     max-width: 350px; 
@@ -100,18 +102,7 @@ h2 {
 .login-btn:hover {
     background-color: #0e0f1a;
 }
-td {
-    background-color: #A69CE5;
-        color: white;
-}
-#infoTable{
-    margin: auto;
-    margin-top: 0;
-    margin-bottom: 30px;
-    border-spacing: 20px;
-    background-color: #A69CE5;
-    text-align: center;
-}
+/* Styles the boxes on the homepage */
 .box-container {
     display: flex; /* Aligns boxes in a row */
     justify-content: center; 
@@ -142,85 +133,117 @@ td {
     font-size: 18px;
 }
 
+/* Center the table and apply rounded corners */
+.board {
+    margin: 30px auto; 
+    width: 80%;
+    max-width: 1200px; 
+    overflow-x: auto;
+    border-radius: 12px; 
+    border: 2px solid #216382; 
+    background-color: #5EB1BF; 
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse; /* Remove the space between borders */
+    border-radius: 12px; /* Rounded corners for the table */
+    overflow: hidden; /* Ensures rounded corners are visible */
+}
+
+/* Styling for table headers */
+th {
+    padding: 12px;
+    text-align: left;
+    background-color: #216382;
+    color: white;
+    font-size: 16px;
+    border-bottom: 2px solid #fff;
+}
+
+/* Alternate row colors */
+tr:nth-child(even) {
+    background-color: #465362; 
+}
+
+tr:nth-child(odd) {
+    background-color: #011936;
+}
+
+/* Table cell styling */
+td {
+    padding: 12px; 
+    text-align: left;
+    font-size: 14px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Table hover effect for rows */
+tr:hover {
+    background-color: #d1e8e4; 
+}
+
+/* Button styling in dropdown */
 .dropbtn {
     background-color: #C0DA74;
     color: white;
     padding: 16px;
     font-size: 16px;
     border: none;
-  }
-  
+    border-radius: 6px; 
+    cursor: pointer;
+}
+.button-container {
+    display: flex;
+    justify-content: center; /* Horizontally center the button */
+    margin-bottom: 20px; /* Adds space between the button and the table */
+}
+/* Dropdown menu */
 .dropdown {
     position: relative;
     display: inline-block;
+    
 }
-  
+
+/* Dropdown content styling */
 .dropdown-content {
     display: none;
     position: absolute;
     background-color: #f1f1f1;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
-  
+
+/* Dropdown menu item styling */
 .dropdown-content a {
     color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
 }
-  
+
 .dropdown-content a:hover {
     background-color: #ddd;
 }
-  
-  
+
+/* Dropdown hover effect */
 .dropdown:hover .dropdown-content {
     display: block;
 }
-  
-  
+
 .dropdown:hover .dropbtn {
-    background-color: #C0DA74;
+    background-color: #A4C88C; 
 }
-  
-.board {
-      margin-top: 16px;
-      width: 100%;
-      overflow-y: scroll;
-      height: 500px;
-      display: block;
-      border: 1px solid;
-      color: #216382;
-}
-  
-table {
-      width: 100%;
-}
-  
-tr:nth-child(even) {
-      border: 1px solid;
-      background-color: #FFFFFF;
-      color: #000000;
-}
-  
-tr:nth-child(odd) {
-      border: 1px solid;
-      background-color: #EEEEEE;
-      color: #000000;}
-  
-th {
-      border: 1px solid;
-      background-color: #216382;
-      color: #FFFFFF;
-}
+
   
 p {
       margin: 10px;
       text-align: center;
 }
 
+/* Styling for the profile page */
 .flexbox-container {
     display: flex;
     justify-content: space-between;
@@ -229,11 +252,11 @@ p {
     width: 80%; /* Ensure it’s wide enough to hold the items side by side */
     flex-wrap: wrap; /* Allow the items to wrap on smaller screens */
     flex-direction: column;
-
+    margin: 20px auto;
 }
 
 .flexbox-achievement, .flexbox-something {
-    background-color: #3b3c58;
+    background-color: #216382;
     font-family: Arial, Helvetica, sans-serif;
     padding: 10px;
     border-radius: 15px;
@@ -243,8 +266,8 @@ p {
     max-width: 47%; /* Limit the max width to fit two items side by side */
 }
 
-.flexbox-leaderboard{
-    background-color: #3b3c58;
+.flexbox-3{
+    background-color: #216382;
     font-family: Arial, Helvetica, sans-serif;
     padding: 20px;
     border-radius: 15px;
@@ -256,7 +279,7 @@ p {
     margin-top: -570px;
 }
 
-/* Profile Card */
+/* Styling for the profile section and uploading picture */
 .profile-card {
     display: flex;
     align-items: center;
@@ -265,57 +288,49 @@ p {
     padding: 20px;
     border-radius: 15px;
     width: 80%;
-    margin-top: 20px;
+    margin: 20px auto;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-}
 
+}
 .profile-info {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 20px;
 }
-
 .profile-pic-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
 }
-
 .profile-pic {
     width: 80px;
     height: 80px;
     border-radius: 50%;
     border: 2px solid #fff;
 }
-
 .upload-btn {
     color: #00bfff;
     cursor: pointer;
     font-size: 14px;
 }
-
 .upload-btn:hover {
     text-decoration: underline;
 }
-
 .user-details {
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
-
 .user-details h2 {
     margin: 0;
     font-size: 18px;
 }
-
 .stats {
     display: flex;
     gap: 20px;
 }
-
 .stat {
     text-align: center;
     font-size: 14px;

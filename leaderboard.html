@@ -16,7 +16,7 @@
         }
         for (let i = 0; i < 100; i++) {
             const row = table.insertRow();            
-            for (let j = 0; j < 4; j++) {
+            for (let j = 0; j < 3; j++) {
                 const cell = row.insertCell();
                 if (j == 0) {
                     cell.innerHTML = count;
@@ -35,8 +35,8 @@
         </div>
         <ul class="nav-links">
             <li><a href="homepage.html">Home</a></li>
-            <li><a href="#">Online PvP</a></li>
-            <li><a href="#">Challenges</a></li>
+            <li><a href="pvp.html">Online PvP</a></li>
+            <li><a href="questions.html">Challenges</a></li>
             <li><a href="leaderboard.html">Leaderboard</a></li>
             <li><a href="profile_page.html">Profile</a></li>
             <li><a href="login_page.html">Login</a></li>
@@ -45,12 +45,13 @@
     </nav>
     <h2>Leaderboard</h2>
     <p>Complete challenges to rise through the ranks and take your spot on the leaderboard!</p>
-    <div class="dropdown">
-        <button class="dropbtn" id="dropdown">Leaderboard</button>
-        <div class="dropdown-content">
-            <a href="#" onclick="generate('Today')">Today</a>
-            <a href="#" onclick="generate('This Week')">This Week</a>
-            <a href="#" onclick="generate('All Time')">All Time</a>
+    <div class="button-container">
+        <div class="dropdown">
+            <button class="dropbtn" id="dropdown">Leaderboard</button>
+            <div class="dropdown-content">
+                <a href="#" onclick="generate('Matches Won')">Matches Won</a>
+                <a href="#" onclick="generate('Challenges Completed')">Challenges Completed</a>
+            </div>
         </div>
     </div>
     <div class="board">
@@ -60,7 +61,6 @@
                     <th>Position</th>
                     <th>Username</th>
                     <th>Score</th>
-                    <th>Time Spent</th>
                 </tr>
             </thead>
             <tbody id="boardbody">
