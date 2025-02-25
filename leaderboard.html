@@ -8,25 +8,32 @@
 </head>
 <script>
     function generate(time) {
-        count = 1;
         const table = document.getElementById("boardbody");
-        const size = table.rows.length;
-        for (let k = 0; k < size; k++){
-            table.rows[0].remove();
-        }
-        for (let i = 0; i < 100; i++) {
-            const row = table.insertRow();            
-            for (let j = 0; j < 3; j++) {
-                const cell = row.insertCell();
-                if (j == 0) {
-                    cell.innerHTML = count;
-                    count = count + 1;
-                }
-            }
-        }
-        button = document.getElementById("dropdown");
-        button.innerHTML = time;
+        table.innerHTML = ""; // Clear previous data
+
+        fetch(`leaderboard.php?filter=${time}`) // Pass filter to backend (modify PHP)
+            .then(response => response.json())
+            .then(data => {
+                let count = 1;
+                data.forEach(player => {
+                    let row = `<tr>
+                        <td>${count}</td>
+                        <td>${player.username}</td>
+                        <td>${player.score}</td>
+                        <td>${player.time_spent}</td>
+                    </tr>`;
+                    table.innerHTML += row;
+                    count++;
+                });
+            })
+            .catch(error => console.error("Error loading leaderboard:", error));
+
+        document.getElementById("dropdown").innerHTML = time; // Update button text
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        generate('All Time'); // Load default leaderboard on page load
+    });
 </script>
 <body>
     <nav class="navbar">
@@ -35,8 +42,8 @@
         </div>
         <ul class="nav-links">
             <li><a href="homepage.html">Home</a></li>
-            <li><a href="pvp.html">Online PvP</a></li>
-            <li><a href="questions.html">Challenges</a></li>
+            <li><a href="#">Online PvP</a></li>
+            <li><a href="#">Challenges</a></li>
             <li><a href="leaderboard.html">Leaderboard</a></li>
             <li><a href="profile_page.html">Profile</a></li>
             <li><a href="login_page.html">Login</a></li>
@@ -45,13 +52,12 @@
     </nav>
     <h2>Leaderboard</h2>
     <p>Complete challenges to rise through the ranks and take your spot on the leaderboard!</p>
-    <div class="button-container">
-        <div class="dropdown">
-            <button class="dropbtn" id="dropdown">Leaderboard</button>
-            <div class="dropdown-content">
-                <a href="#" onclick="generate('Matches Won')">Matches Won</a>
-                <a href="#" onclick="generate('Challenges Completed')">Challenges Completed</a>
-            </div>
+    <div class="dropdown">
+        <button class="dropbtn" id="dropdown">Leaderboard</button>
+        <div class="dropdown-content">
+            <a href="#" onclick="generate('Today')">Today</a>
+            <a href="#" onclick="generate('This Week')">This Week</a>
+            <a href="#" onclick="generate('All Time')">All Time</a>
         </div>
     </div>
     <div class="board">
@@ -61,12 +67,12 @@
                     <th>Position</th>
                     <th>Username</th>
                     <th>Score</th>
+                    <th>Time Spent</th>
                 </tr>
             </thead>
             <tbody id="boardbody">
             </tbody>
         </table>
-
     </div>
 </body>
 </html>
