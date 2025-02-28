@@ -5,36 +5,102 @@
     <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leaderboard</title>
-</head>
-<script>
-    function generate(time) {
-        const table = document.getElementById("boardbody");
-        table.innerHTML = ""; // Clear previous data
+    <style>
+        .sort-buttons {
+            margin-bottom: 15px;
+        }
+        .sort-buttons button {
+            padding: 8px 15px;
+            margin-right: 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .sort-buttons button.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+    <script>
+        let leaderboardData = [];
+        
+        function generate() {
+            const table = document.getElementById("boardbody");
+            table.innerHTML = "<tr><td colspan='4'>Loading data...</td></tr>"; // Show loading indicator
 
-        fetch(`leaderboard.php?filter=${time}`) // Pass filter to backend (modify PHP)
-            .then(response => response.json())
-            .then(data => {
-                let count = 1;
-                data.forEach(player => {
-                    let row = `<tr>
-                        <td>${count}</td>
-                        <td>${player.username}</td>
-                        <td>${player.score}</td>
-                        <td>${player.time_spent}</td>
-                    </tr>`;
-                    table.innerHTML += row;
-                    count++;
+            fetch("leaderboard.php")
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    table.innerHTML = ""; // Clear loading message
+                    
+                    if (data.error) {
+                        console.error("SQL Error:", data.error);
+                        table.innerHTML = `<tr><td colspan="4">Database error: ${data.error}</td></tr>`;
+                        return;
+                    }
+                    
+                    if (data.length === 0) {
+                        table.innerHTML = "<tr><td colspan='4'>No leaderboard data available</td></tr>";
+                        return;
+                    }
+
+                    // Save the data for sorting later
+                    leaderboardData = data;
+                    
+                    // By default, sort by wins
+                    sortLeaderboard('wins');
+                    
+                    console.log("Leaderboard data loaded successfully:", data);
+                })
+                .catch(error => {
+                    console.error("Error loading leaderboard:", error);
+                    table.innerHTML = `<tr><td colspan="4">Error: ${error.message}</td></tr>`;
                 });
-            })
-            .catch(error => console.error("Error loading leaderboard:", error));
+        }
 
-        document.getElementById("dropdown").innerHTML = time; // Update button text
-    }
+        function sortLeaderboard(sortBy) {
+            // Set active button
+            document.querySelectorAll('.sort-buttons button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(`sort-${sortBy}`).classList.add('active');
+            
+            // Sort the data
+            const sortedData = [...leaderboardData];
+            if (sortBy === 'wins') {
+                sortedData.sort((a, b) => b.wins - a.wins);
+            } else if (sortBy === 'problems') {
+                sortedData.sort((a, b) => b.problems_solved - a.problems_solved);
+            }
+            
+            // Display the sorted data
+            const table = document.getElementById("boardbody");
+            table.innerHTML = "";
+            
+            let count = 1;
+            sortedData.forEach(player => {
+                let row = `<tr>
+                    <td>${count}</td>
+                    <td>${player.username}</td>
+                    <td>${player.wins}</td>
+                    <td>${player.problems_solved}</td>
+                </tr>`;
+                table.innerHTML += row;
+                count++;
+            });
+        }
 
-    document.addEventListener("DOMContentLoaded", function () {
-        generate('All Time'); // Load default leaderboard on page load
-    });
-</script>
+        document.addEventListener("DOMContentLoaded", function () {
+            generate(); // Load leaderboard on page load
+        });
+    </script>
+</head>
 <body>
     <nav class="navbar">
         <div class="logo">
@@ -52,22 +118,21 @@
     </nav>
     <h2>Leaderboard</h2>
     <p>Complete challenges to rise through the ranks and take your spot on the leaderboard!</p>
-    <div class="dropdown">
-        <button class="dropbtn" id="dropdown">Leaderboard</button>
-        <div class="dropdown-content">
-            <a href="#" onclick="generate('Today')">Today</a>
-            <a href="#" onclick="generate('This Week')">This Week</a>
-            <a href="#" onclick="generate('All Time')">All Time</a>
-        </div>
+    
+    <div class="sort-buttons">
+        <p>Sort by:</p>
+        <button id="sort-wins" class="active" onclick="sortLeaderboard('wins')">Most Wins</button>
+        <button id="sort-problems" onclick="sortLeaderboard('problems')">Most Problems Solved</button>
     </div>
+    
     <div class="board">
         <table>
             <thead>
                 <tr>
                     <th>Position</th>
                     <th>Username</th>
-                    <th>Score</th>
-                    <th>Time Spent</th>
+                    <th>Wins</th>
+                    <th>Problems Solved</th>
                 </tr>
             </thead>
             <tbody id="boardbody">
