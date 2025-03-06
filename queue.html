@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Matchmaking</title>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logo1.png" alt="CodeClash Logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="homepage.html">Home</a></li>
+            <li><a href="queue.html">Online PvP</a></li>
+            <li><a href="questions.html">Challenges</a></li>
+            <li><a href="leaderboard.html">Leaderboard</a></li>
+            <li><a href="profile_page.html">Profile</a></li>
+            <li><a href="logout.php">Log Out</a></li>
+        </ul>
+    </nav>
+    <div class="queue-container">    
+        <h1>Matchmaking Queue</h1>
+        <button id="joinQueue">Join Queue</button>
+        <p id="status">Waiting...</p>
+    </div>
+
+
+    <script>
+        async function checkSession() {
+        const response = await fetch('session.php');
+        const data = await response.json();
+    
+        if (!data.logged_in) {
+            window.location.href = "login_page.html";
+        }
+        }
+        const socket = new WebSocket('ws://localhost:8080');
+        const queueButton = document.getElementById('joinQueue');
+        const statusText = document.getElementById('status');       
+
+        if (localStorage.getItem("inQueue") === "true") {
+            queueButton.disabled = true;
+            statusText.innerText = "Searching for an opponent...";
+        }
+
+        queueButton.addEventListener('click', async () => {
+            if (queueButton.disabled) return; // Preventing connecting again
+
+            const response = await fetch('session.php');
+            const data = await response.json();
+
+            if (!data.logged_in) {
+                alert("Please log in first!");
+                return;
+            }
+
+            socket.send(JSON.stringify({ type: 'join_queue', userId: data.userid }));
+            queueButton.disabled = true;
+            statusText.innerText = "Searching for an opponent...";
+            localStorage.setItem("inQueue", "true");
+        });
+
+        socket.onmessage = (event) => {
+            const message = JSON.parse(event.data);
+
+            if (message.type === 'match_found') {
+                alert(`Match found! Your opponent is User ${message.opponent}. Redirecting...`);
+                
+                localStorage.removeItem("inQueue");
+                localStorage.setItem("userId", message.userId);
+                localStorage.setItem("matchId", message.matchId);
+
+                window.location.href = `challenge_page.html?questionID=${message.challengeId}`;
+            }
+        };
+
+        window.onbeforeunload = () => {
+            socket.send(JSON.stringify({ type: 'identify', userID: localStorage.getItem('userId'), matchId: localStorage.getItem('matchId') }));
+            socket.close();
+        };
+
+        // If desconected
+        socket.onclose = () => {
+            console.warn("Disconnected from server. You may need to rejoin.");
+            queueButton.disabled = false;
+            localStorage.removeItem("inQueue");
+        };
+    </script>
+</body>
+</html>

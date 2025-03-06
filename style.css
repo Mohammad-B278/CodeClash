@@ -562,3 +562,43 @@ button:hover {
     background-color: #4CAF50;
     color: white;
 }
+
+.queue-container {
+    width: 50%;
+    margin: 50px auto;
+    padding: 20px;
+    text-align: center;
+    background-color: #1e1e2f;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #ffffff;
+}
+
+.queue-container h1 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    color: #C0DA74;
+}
+
+.queue-container button {
+    background-color: #216382;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.queue-container button:hover {
+    background-color: #007bff;
+    transform: scale(1.05);
+}
+
+#status {
+    font-size: 20px;
+    margin-top: 15px;
+    font-weight: bold;
+    color: white;
+}
