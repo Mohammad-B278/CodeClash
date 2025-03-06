@@ -124,6 +124,12 @@ h2 {
     font-size: 18px;
     color: white;
     font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+.box:hover {
+    background: #5EB1BF; /* Darker green on hover */
+    transform: scale(1.05); /* Slight pop effect */
 }
 .box p{
     font-size: 18px;
@@ -181,7 +187,7 @@ td {
 
 /* Table hover effect for rows */
 tr:hover {
-    background-color: #d1e8e4; 
+    background-color: #007bff; 
 }
 
 /* Button styling in dropdown */
@@ -266,7 +272,7 @@ p {
     max-width: 47%; /* Limit the max width to fit two items side by side */
 }
 
-.flexbox-3{
+.flexbox-leaderboard{
     background-color: #216382;
     font-family: Arial, Helvetica, sans-serif;
     padding: 20px;
@@ -278,7 +284,49 @@ p {
     margin-left: 50%;
     margin-top: -570px;
 }
+.flexbox-leaderboard h3 {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background: #011936;
+    padding: 5px 0px;
+    margin: 5px 0;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
 
+.flexbox-leaderboard div {
+    width: 100%;
+}
+
+h3 span {
+    flex: 1;
+    text-align: center;
+}
+
+h3 span:first-child {
+    flex: 0.5; /* Rank column */
+}
+
+h3 span:last-child {
+    flex: 0.5; /* Wins column */
+}
+.leaderboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #C0DA74; /* Green background */
+    color: white; /* White text */
+    padding: 8px 0px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: left;
+    width: 90%;
+
+}
+.flexbox-leaderboard button {
+    margin-bottom: 10px; /* Adds space below buttons */
+}
 /* Styling for the profile section and uploading picture */
 .profile-card {
     display: flex;
@@ -376,6 +424,10 @@ p {
     white-space: normal;
     color: black;
     max-height: calc(90vh - 350px);
+}
+
+#problem-description {
+    text-align: left;    
 }
 
 #problem-section,
@@ -495,3 +547,18 @@ button:hover {
     color: #C0DA74; /* Header color */
 }
 
+.sort-buttons {
+    margin-bottom: 15px;
+}
+.sort-buttons button {
+    padding: 8px 15px;
+    margin-right: 10px;
+    background-color: #007bff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.sort-buttons button.active {
+    background-color: #4CAF50;
+    color: white;
+}

@@ -19,8 +19,7 @@
             <li><a href="questions.html">Challenges</a></li>
             <li><a href="leaderboard.html">Leaderboard</a></li>
             <li><a href="profile_page.html">Profile</a></li>
-            <li><a href="login_page.html">Login</a></li>
-            <li><a href="signup_page.html">Sign Up</a></li>
+            <li><a href="logout.php">Log Out</a></li>
         </ul>
     </nav>
 
@@ -29,3 +28,13 @@
 
 </body>
 </html>
+<script>
+    async function checkSession() {
+        const response = await fetch('session.php');
+        const data = await response.json();
+    
+        if (!data.logged_in) {
+            window.location.href = "login_page.html";
+        }
+    }
+    </script>

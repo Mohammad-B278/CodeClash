@@ -17,8 +17,7 @@
             <li><a href="questions.html">Challenges</a></li>
             <li><a href="leaderboard.html">Leaderboard</a></li>
             <li><a href="profile_page.html">Profile</a></li>
-            <li><a href="login_page.html">Login</a></li>
-            <li><a href="signup_page.html">Sign Up</a></li>
+            <li><a href="logout.php">Log Out</a></li>
         </ul>
     </nav>
     <div class="profile-card">
@@ -41,7 +40,7 @@
 
     <!-- Flexbox container -->
     <div class="flexbox-container">
-        <div class="flexbox-achievement" style="width:50%; max-height: 150px; overflow-y: auto; border: 1px solid #ccc; display: flex; flex-direction: column; flex-shrink: 0;">
+        <div class="flexbox-achievement" style="width:50%; max-height: 150px; overflow-y: auto; display: flex; flex-direction: column; flex-shrink: 0;">
             <p>Achievements Completed</p>
             <table style="width: 50%; border-collapse: collapse;">
                 <tbody id = "table-body">
@@ -56,11 +55,17 @@
             </table>
         </div> 
         <div class="flexbox-leaderboard">
-            <span>Leaderboard</span> 
-            <span>Problems Solved</span> 
-            <span>Wins</span>
-            <button type="button" onclick="hideDetails()">Problem Solved</button>
-            <button type="button" onclick="hideDetailsForWins()">Wins</button>
+            <div class="sort-buttons">
+                <button type="button" onclick="hideDetails()">Problem Solved</button>
+                <button type="button" onclick="hideDetailsForWins()">Wins</button>
+            </div>
+            <div class=" leaderboard-header">
+                <span>Leaderboard</span> 
+                <span>Problems Solved</span> 
+                <span>Wins</span>                
+            </div>
+
+
             <div>
                 <!--&nbsp; is used to add 1 space of whitespace someone of front end can make them line up without using &nbsp;-->
                 <h3 id = position-1>1st 

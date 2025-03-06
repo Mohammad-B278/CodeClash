@@ -42,7 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (password_verify($password, $hashed_password)) {
                     $_SESSION['userid'] = $userid;
                     $_SESSION['username'] = $username;
-                    echo "Login successful. <a href='homepage.html'>Go to profile</a>";
+                    header('Location: homepage.html');
+                    exit;
                 } else {
                     echo "Invalid email or password";
                 }
