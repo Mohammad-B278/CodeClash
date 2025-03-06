@@ -24,36 +24,329 @@
     <div class="profile-card">
         <div class="profile-info">
             <div class="profile-pic-container">
-                <img src="Blank-profile-pic.jpg" alt="Profile Picture" class="profile-pic">
+                <!-- <img src="Blank-profile-pic.jpg" alt="Profile Picture" class="profile-pic"> -->
                 <input type="file" id="profile-upload" style="display: none;">
                 <label for="profile-upload" class="upload-btn">Change Profile</label>
             </div>
             <div class="user-details">
-                <h2>Hello, <span class="username">Username</span></h2>
+                <h2>Hello <span class="username" id = "user-name">Username</span></h2>
             </div>
         </div>
         <div class="stats">
-            <div class="stat"><strong>25</strong><br> Total Challenges</div>
-            <div class="stat"><strong>12</strong><br> Wins</div>
-            <div class="stat"><strong>13</strong><br> Losses</div>
-            <div class="stat"><strong>20</strong><br> Solutions Solved</div>
-            <div class="stat"><strong>3</strong><br> Longest Win Streak</div>
+            <div class="stat"><strong id = "attempts"> a </strong><br> Total Attempts</div>
+            <div class="stat"><strong id = "win"> b </strong><br> Wins</div>
+            <div class="stat"><strong id = "num-problems-solved"> d </strong><br> Solutions Solved</div>
         </div>
     </div> 
 
     <!-- Flexbox container -->
     <div class="flexbox-container">
-        <div class="flexbox-achievement">
-            <p>Achievement Box</p>
+        <div class="flexbox-achievement" style="width:50%; max-height: 150px; overflow-y: auto; border: 1px solid #ccc; display: flex; flex-direction: column; flex-shrink: 0;">
+            <p>Achievements Completed</p>
+            <table style="width: 50%; border-collapse: collapse;">
+                <tbody id = "table-body">
+                </tbody>
+            </table>
         </div>
         <div class="flexbox-something">
-            <p>Box</p>
+            <p>Questions Solved</p>
+            <table style="width: 50%; border-collapse: collapse;">
+                <tbody id = "table-body-questions-solved">
+                </tbody>
+            </table>
         </div> 
-        <div class="flexbox-3">
-            <p>Box</p>
+        <div class="flexbox-leaderboard">
+            <span>Leaderboard</span> 
+            <span>Problems Solved</span> 
+            <span>Wins</span>
+            <button type="button" onclick="hideDetails()">Problem Solved</button>
+            <button type="button" onclick="hideDetailsForWins()">Wins</button>
+            <div>
+                <!--&nbsp; is used to add 1 space of whitespace someone of front end can make them line up without using &nbsp;-->
+                <h3 id = position-1>1st 
+                    <span id = "rank1">Username</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id = "leaderboard-num-problems-solved-1">Problems Solved</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id = "leaderboard-wins-1">Wins</span>
+                </h3>
+            </div>
+
+            <div>
+                <h3 id = position-2>2nd 
+                    <span id = "rank2">Username</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id = "leaderboard-num-problems-solved-2">Problems Solved</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id = "leaderboard-wins-2">Wins</span>
+                </h3>
+            </div>
+
+            <div>
+                <h3 id = position-3>3rd
+                    <span id = "rank3">Username</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id = "leaderboard-num-problems-solved-3">Problems Solved</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id = "leaderboard-wins-3">Wins</span>
+                </h3>
+            </div>
+
+            <div>
+                <h3 id = position-4>4th
+                    <span id = "rank4">Username</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id = "leaderboard-num-problems-solved-4">Problems Solved</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id = "leaderboard-wins-4">Wins</span>
+                </h3>
+            </div>
+
+            <div>
+                <h3 id = position-5>5th 
+                    <span id = "rank5">Username</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id = "leaderboard-num-problems-solved-5">Problems Solved</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id = "leaderboard-wins-5">Wins</span>
+                </h3>
+            </div>
+
+            <div>
+                <h3 id = position-6>6th 
+                    <span id = "rank6">Username</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id = "leaderboard-num-problems-solved-6">Problems Solved</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id = "leaderboard-wins-6">Wins</span>
+                </h3>
+            </div>
+
+            <div>
+                <h3 id = position-7>7th 
+                    <span id = "rank7">Username</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id = "leaderboard-num-problems-solved-7">Problems Solved</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id = "leaderboard-wins-7">Wins</span>
+                </h3>
+            </div>
+
+            <div>
+                <h3 id = position-8>8th 
+                    <span id = "rank8">Username</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id = "leaderboard-num-problems-solved-8">Problems Solved</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id = "leaderboard-wins-8">Wins</span>
+                </h3>
+            </div>
+
+            <div>
+                <h3 id = position-9>9th 
+                    <span id = "rank9">Username</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id = "leaderboard-num-problems-solved-9">Problems Solved</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id = "leaderboard-wins-9">Wins</span>
+                </h3>
+            </div>
+
+            <div>
+                <h3 id = position-10>10th 
+                    <span id = "rank10">Username</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id = "leaderboard-num-problems-solved-10">Problems Solved</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id = "leaderboard-wins-10">Wins</span>
+                </h3>
+            </div>
+
+            <div>
+                <h3>
+                    <span id = "position-n">Current Position</span> 
+                    <span id = "current_rank">Username</span> 
+                    <span id = "leaderboard-num-problems-solved-n">Problems Solved</span>
+                    <span id = "leaderboard-wins-n">Wins</span>
+                </h3>
+            </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        async function fetchUserdetail() {
+            const response = await fetch(`fetch_userdetail.php`);
+            const data = await response.json();
+
+            if (data.error) {
+                alert(data.error);
+                return;
+            }
+
+            //display user details
+            document.getElementById("user-name").innerText = data.username; //("Id") = data.name given in the php file
+            document.getElementById("win").innerText = data.num_wins;
+            document.getElementById("num-problems-solved").innerText = data.num_problems_solved;
+            document.getElementById("attempts").innerText = data.attempts
+        }
+
+        async function fetchleaderboardbyproblemsolved() {
+            const response = await fetch(`fetch_leaderboard.php`);
+            const data = await response.json();
+            let on_leaderboard = false;
+            let j = 0;
+
+            if (data.error) {
+                alert(data.error);
+                return;
+            }
+
+            //display user details
+            for (let i = 0; i < Math.min(10, data.length); i++) {
+                if (data[i].username == document.getElementById("user-name").innerText) {
+                    //alert("aaaa"); // For testing, add a proper logic here (highlight or smth)
+                    //top = true;
+                    on_leaderboard = true;
+                }
+                document.getElementById(`rank${i + 1}`).innerText = data[i].username;
+                document.getElementById(`leaderboard-num-problems-solved-${i + 1}`).innerText = data[i].leaderboard_problems;
+                document.getElementById(`leaderboard-wins-${i + 1}`).innerText = data[i].leaderboard_wins;
+            }
+
+            //displays the users current position if not on leaderboard
+            if (on_leaderboard == false){
+                for (let i = 0; i < data.length; i++) {
+                    if (data[i].username == document.getElementById("user-name").innerText) {
+                        document.getElementById(`position-n`).innerText = i + 1;
+                        document.getElementById(`current_rank`).innerText = data[i].username;
+                        document.getElementById(`leaderboard-num-problems-solved-n`).innerText = data[i].leaderboard_problems;
+                        document.getElementById(`leaderboard-wins-n`).innerText = data[i].leaderboard_wins;                     
+                    }
+                }
+            }
+        }
+
+        async function checkSession() {
+            const response = await fetch('session.php');
+            const data = await response.json();
+
+            if (!data.logged_in) {
+                window.location.href = "login_page.html";
+            }
+        }
+
+
+        //this function will hide the entries on the leaderboard if they are not on top 10
+        async function hideDetails(){
+            for (let i = 0; i < 10; i++){
+                await fetchleaderboardbyproblemsolved();
+                //await fetchleaderboardbywins();
+                if (document.getElementById(`rank${i + 1}`).outerText == "Username"){
+                    //alert("no data"); used for testing
+                    document.getElementById(`rank${i + 1}`).style.visibility = "hidden";
+                    document.getElementById(`leaderboard-num-problems-solved-${i + 1}`).style.visibility = "hidden";
+                    document.getElementById(`leaderboard-wins-${i + 1}`).style.visibility = "hidden";
+                    document.getElementById(`position-${i + 1}`).style.visibility = "hidden";
+                }
+            }
+        }
+
+        async function hideDetailsForWins(){
+            for (let i = 0; i < 10; i++){
+                //await fetchleaderboardbyproblemsolved();
+                await fetchleaderboardbywins();
+                if (document.getElementById(`rank${i + 1}`).outerText == "Username"){
+                    //alert("no data"); used for testing
+                    document.getElementById(`rank${i + 1}`).style.visibility = "hidden";
+                    document.getElementById(`leaderboard-num-problems-solved-${i + 1}`).style.visibility = "hidden";
+                    document.getElementById(`leaderboard-wins-${i + 1}`).style.visibility = "hidden";
+                    document.getElementById(`position-${i + 1}`).style.visibility = "hidden";
+                }
+            }
+        }
+
+        async function fetchleaderboardbywins() {
+            const response = await fetch(`fetch_leaderboard_by_wins.php`);
+            const data = await response.json();
+            let on_leaderboard = false;
+
+            if (data.error) {
+                alert(data.error);
+                return;
+            }
+
+            //display user details
+            for (let i = 0; i < Math.min(10, data.length); i++) {
+                if (data[i].username == document.getElementById("user-name").innerText) {
+                    //alert("aaaa"); // For testing, add a proper logic here (highlight or smth)
+                    //top = true;
+                    on_leaderboard = true;
+                }
+                document.getElementById(`rank${i + 1}`).innerText = data[i].username;
+                document.getElementById(`leaderboard-num-problems-solved-${i + 1}`).innerText = data[i].leaderboard_problems;
+                document.getElementById(`leaderboard-wins-${i + 1}`).innerText = data[i].leaderboard_wins;
+            }
+
+            if (on_leaderboard == false) {
+                // Find the user in data and change the last row to what you need
+                // iterate through the JSON data of users sorted
+                document.getElementById(`current_rank`).innerText = data[i].username;
+                document.getElementById(`leaderboard-num-problems-solved-n`).innerText = data[i].leaderboard_problems;
+                document.getElementById(`leaderboard-wins-n`).innerText = data[i].leaderboard_wins;
+            }
+        }
+
+        async function displayachievements() {
+            const response = await fetch(`fetch_achievements.php`);
+            const data = await response.json();
+
+            var tableBody = document.getElementById("table-body");
+
+            // Clear any existing rows in the table
+            tableBody.innerHTML = "";
+
+            // Check if achievements exist in the response
+            if (data.achievements && data.achievements.length > 0) {
+                // Loop through the achievements array
+                data.achievements.forEach((achievement, index) => {
+                var row = document.createElement("tr");
+
+                // Add the achievement to the table row
+                row.innerHTML = `
+                    <td style="border: 1px solid black; padding: 10px;">${achievement}</td>
+                `;
+
+                tableBody.appendChild(row);
+            });
+        } else {
+            // If no achievements are found, display a message
+            var row = document.createElement("tr");
+            row.innerHTML = `
+                <td colspan="2" style="border: 1px solid black; padding: 10px; text-align: center;">No achievements found.</td>
+            `;
+            tableBody.appendChild(row);
+            }
+        }
+
+        async function displayquestions() {
+            const response = await fetch(`fetch_questions_solved.php`);
+            const data = await response.json();
+
+            var tableBody = document.getElementById("table-body-questions-solved");
+
+            // Clear any existing rows in the table
+            tableBody.innerHTML = "";
+
+            // Check if achievements exist in the response
+            if (data.questions && data.questions.length > 0) {
+                // Loop through the achievements array
+                data.questions.forEach((question, index) => {
+                var row = document.createElement("tr");
+
+                // Add the achievement to the table row
+                row.innerHTML = `
+                    <td style="border: 1px solid black; padding: 10px;">${question}</td>
+                `;
+
+                tableBody.appendChild(row);
+            });
+        } else {
+            // If no achievements are found, display a message
+            var row = document.createElement("tr");
+            row.innerHTML = `
+                <td colspan="2" style="border: 1px solid black; padding: 10px; text-align: center;">No question found.</td>
+            `;
+            tableBody.appendChild(row);
+            }
+        }
+
+        checkSession();
+        fetchUserdetail();
+        hideDetails();
+        displayachievements();
+        displayquestions();
+    </script>
+
+    <script src="profile_script.js"></script>
 </body>
 </html>
