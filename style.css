@@ -170,11 +170,11 @@ th {
 
 /* Alternate row colors */
 tr:nth-child(even) {
-    background-color: #465362; 
+    background-color: #2A3F5F; 
 }
 
 tr:nth-child(odd) {
-    background-color: #011936;
+    background-color: #3B4A62;
 }
 
 /* Table cell styling */
@@ -254,7 +254,7 @@ p {
     display: flex;
     justify-content: space-between;
     gap: 15px; /* Adds space between flex items */
-    padding: 20px;
+    padding: 5px;
     width: 80%; /* Ensure it’s wide enough to hold the items side by side */
     flex-wrap: wrap; /* Allow the items to wrap on smaller screens */
     flex-direction: column;
@@ -275,7 +275,7 @@ p {
 .flexbox-leaderboard{
     background-color: #216382;
     font-family: Arial, Helvetica, sans-serif;
-    padding: 20px;
+    padding: 16px;
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     flex: 1; /* Makes them flexible within the flexbox container */
@@ -325,7 +325,7 @@ h3 span:last-child {
 
 }
 .flexbox-leaderboard button {
-    margin-bottom: 10px; /* Adds space below buttons */
+    margin-bottom: 3px; /* Adds space below buttons */
 }
 /* Styling for the profile section and uploading picture */
 .profile-card {
@@ -345,26 +345,6 @@ h3 span:last-child {
     flex-direction: row;
     align-items: center;
     gap: 20px;
-}
-.profile-pic-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-}
-.profile-pic {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    border: 2px solid #fff;
-}
-.upload-btn {
-    color: #00bfff;
-    cursor: pointer;
-    font-size: 14px;
-}
-.upload-btn:hover {
-    text-decoration: underline;
 }
 .user-details {
     display: flex;
@@ -549,10 +529,14 @@ button:hover {
 
 .sort-buttons {
     margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
 .sort-buttons button {
     padding: 8px 15px;
-    margin-right: 10px;
+    left: 20px;
+    position: relative;
     background-color: #007bff;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -561,6 +545,7 @@ button:hover {
 .sort-buttons button.active {
     background-color: #4CAF50;
     color: white;
+    
 }
 
 .queue-container {
