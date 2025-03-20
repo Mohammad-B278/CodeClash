@@ -1,4 +1,9 @@
 <?php
+/*
+Fetching all the questions available for the questions page
+*/
+
+
 header("Content-Type: application/json");
 require "db_config.php"; // Include database connection
 

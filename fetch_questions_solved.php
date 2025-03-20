@@ -1,4 +1,8 @@
 <?php
+/*
+Fetching all the questions solved by user for profile page
+*/
+
 session_start();
 header("Content-Type: application/json");
 require "db_config.php";
@@ -18,10 +22,10 @@ $result = $stmt->get_result();
 $userquestion = [];
 
 while ($row = $result->fetch_assoc()) {
-    $userquestion[] = $row['questionID']; // Store only the achievementID values
+    $userquestion[] = $row['questionID']; // Store only the questionID values
 }
 
-// If no achievements are found, return an empty array
+// If no questions are found, return an empty array
 if (empty($userquestion)) {
     echo json_encode(["questions" => []]);
     $conn->close();

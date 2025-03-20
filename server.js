@@ -1,3 +1,8 @@
+/*
+Used to set up websockets for the users, as well as process their messages
+*/
+
+
 import { WebSocketServer } from 'ws';
 import dotenv from 'dotenv';
 import fetch from 'node-fetch';
@@ -148,5 +153,3 @@ async function recordWin(userId) {
         console.error("Error recording win:", error);
     }
 }
-
-console.log("WebSocket server running on ws://localhost:8080");

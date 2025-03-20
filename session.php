@@ -1,4 +1,10 @@
 <?php
+/*
+Script used in all of the pages (excluding login and signup) to check if the user is logged in. Used to
+return user to login page if not
+*/
+
+
 session_start();
 header("Content-Type: application/json");
 

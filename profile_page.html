@@ -1,3 +1,9 @@
+<!-- 
+Profile page for the user, which includes: user's achievements and problems solved, user stats
+and mini leaderboard for theu ser to see
+ -->
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +29,7 @@
     <div class="profile-card">
         <div class="profile-info">
             <div class="user-details">
-                <h2>Hello <span class="username" id = "user-name">Username</span></h2>
+                <h2>Hi, <span class="username" id = "user-name">Username</span>!</h2>
             </div>
         </div>
         <div class="stats">
@@ -174,18 +180,17 @@
             const response = await fetch(`fetch_leaderboard.php`);
             const data = await response.json();
             let on_leaderboard = false;
-            let j = 0;
 
             if (data.error) {
                 alert(data.error);
                 return;
             }
 
+            const username = document.getElementById("user-name").innerText;
+
             //display user details
             for (let i = 0; i < Math.min(10, data.length); i++) {
-                if (data[i].username == document.getElementById("user-name").innerText) {
-                    //alert("aaaa"); // For testing, add a proper logic here (highlight or smth)
-                    //top = true;
+                if (data[i].username == username) {
                     on_leaderboard = true;
                 }
                 document.getElementById(`rank${i + 1}`).innerText = data[i].username;
@@ -194,24 +199,30 @@
             }
 
             //displays the users current position if not on leaderboard
-            if (on_leaderboard == false){
+            const currentPositionDiv = document.getElementById("position-n").parentElement.parentElement;
+            if (on_leaderboard) {
+                currentPositionDiv.style.display = "none";
+            } else {
+                currentPositionDiv.style.display = "block";
                 for (let i = 0; i < data.length; i++) {
-                    if (data[i].username == document.getElementById("user-name").innerText) {
+                    if (data[i].username === username) {
                         document.getElementById(`position-n`).innerText = i + 1;
                         document.getElementById(`current_rank`).innerText = data[i].username;
                         document.getElementById(`leaderboard-num-problems-solved-n`).innerText = data[i].leaderboard_problems;
-                        document.getElementById(`leaderboard-wins-n`).innerText = data[i].leaderboard_wins;                     
+                        document.getElementById(`leaderboard-wins-n`).innerText = data[i].leaderboard_wins;  
+                        break;                   
                     }
                 }
             }
         }
+
 
         async function checkSession() {
             const response = await fetch('session.php');
             const data = await response.json();
 
             if (!data.logged_in) {
-                window.location.href = "login_page.html";
+                window.location.href = "index.html";
             }
         }
 
@@ -371,7 +382,5 @@
         displayachievements();
         displayquestions();
     </script>
-
-    <script src="profile_script.js"></script>
 </body>
 </html>

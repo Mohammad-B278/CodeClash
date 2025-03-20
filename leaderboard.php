@@ -1,10 +1,11 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+/*
+Fetching leaderboard data for leaderboard page
+*/
 
-include 'db_config.php';
 
-header('Content-Type: application/json');
+header("Content-Type: application/json");
+require "db_config.php";
 
 $sql = "SELECT 
             performance.userID, 

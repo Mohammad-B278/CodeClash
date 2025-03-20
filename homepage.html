@@ -1,3 +1,9 @@
+<!-- 
+Homepage - the first page user sees after logging in. It contains simple website description
+and main parts of the website as large buttons, so that the user couldn't miss them 
+ -->
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +17,9 @@
 <body>
     <nav class="navbar">
         <div class="logo">
-            <img src="logo1.png" alt="CodeClash Logo">
+            <a href="homepage.html">
+                <img src="logo1.png" alt="CodeClash Logo">
+            </a>
         </div>
         <ul class="nav-links">
             <li><a href="homepage.html">Home</a></li>
@@ -29,17 +37,18 @@
                  platform where coders go head-to-head in real-time coding duels.
                   Inspired by LeetCode-style challenges, 
                   this PvP experience lets you test your problem-solving
-                   skills against friends and rivals. Whether you're 
-                   sharpening your algorithms, preparing for technical 
+                   skills against friends and rivals, as well as practice 
+                   your skills on your own to gain valuable experience. 
+                   Whether you're sharpening your algorithms, preparing for technical 
                    interviews, or just looking for an exciting way to code, 
-                   Code Clash offers a dynamic leaderboard, timed battles, 
+                   Code Clash offers a dynamic leaderboard, duels, 
                    and a variety of challenges across different difficulty levels.
                     Are you ready to prove your coding dominance? Jump in and start clashing!
             </p> 
 
     <div class="box-container">
         <div class="box" onclick="location.href='queue.html'">
-            <h2>Online Pvp</h2>
+            <h2>Online PvP</h2>
             <p>Challenge other coders in real-time battles!</p>
 
         </div>
@@ -63,7 +72,7 @@
         const data = await response.json();
     
         if (!data.logged_in) {
-            window.location.href = "login_page.html";
+            window.location.href = "index.html";
         }
     }
     </script>

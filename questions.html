@@ -1,3 +1,9 @@
+<!-- 
+Page containing all the questions from the database for users to try solving, as well
+as search and filtering options
+ -->
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +15,9 @@
 <body>
         <nav class="navbar">
             <div class="logo">
-                <img src="logo1.png" alt="CodeClash Logo">
+                <a href="homepage.html">
+                    <img src="logo1.png" alt="CodeClash Logo">
+                </a>
             </div>
             <ul class="nav-links">
                 <li><a href="homepage.html">Home</a></li>
@@ -86,7 +94,8 @@
 
             filteredQuestions.forEach(q => {
                 const li = document.createElement("li");
-                li.innerHTML = `<a href="coding_page.html?questionID=${q.questionID}">${q.title}</a> | ${q.difficulty}`;
+                li.innerHTML = `<a href="coding_page.html?questionID=${q.questionID}">${q.title}</a> | 
+                <span class="difficulty ${q.difficulty.toLowerCase()}">${q.difficulty}</span>`;
                 list.appendChild(li);
             });
         }
@@ -101,7 +110,7 @@
             const data = await response.json();
 
             if (!data.logged_in) {
-                window.location.href = "login_page.html";
+                window.location.href = "index.html";
             }
         }
 

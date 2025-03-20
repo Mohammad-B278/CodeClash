@@ -1,4 +1,9 @@
 <?php
+/*
+Fetching relevant user details for the stats in user page
+*/
+
+
 session_start();
 header("Content-Type: application/json");
 require "db_config.php";

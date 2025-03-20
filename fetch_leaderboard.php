@@ -1,4 +1,9 @@
 <?php
+/*
+Fetching all the relevant data for leaderboard in profile page
+*/
+
+
 session_start();
 header("Content-Type: application/json");
 require "db_config.php";

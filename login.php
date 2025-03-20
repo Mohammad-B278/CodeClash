@@ -1,4 +1,9 @@
 <?php
+/*
+Checking login details for correctness for login page
+*/
+
+
 include 'db_config.php';
 session_start();
 
@@ -10,12 +15,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Check if reCAPTCHA was completed
     if (!isset($_POST['g-recaptcha-response']) || empty($_POST['g-recaptcha-response'])) {
-        die("Error: reCAPTCHA verification is required.");
-    }
-
-    // Check if reCAPTCHA was completed
-    if (!isset($_POST['g-recaptcha-response']) || empty($_POST['g-recaptcha-response'])) {
-        die("Error: reCAPTCHA verification is required.");
+        echo "<script>alert('Error: reCAPTCHA verification is required'); window.location.href='index.html';</script>";
+        exit;
     }
 
     if ($response_keys["success"]) {
@@ -25,7 +26,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Input validation
             if (empty($email) || empty($password)) {
-                die("You have to provide email and password");
+                echo "<script>alert('You have to provide email and password'); window.location.href='index.html';</script>";
+                exit;
             }
 
             // Retrieving data
@@ -45,19 +47,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     header('Location: homepage.html');
                     exit;
                 } else {
-                    echo "Invalid email or password";
+                    echo "<script>alert('Invalid email or password'); window.location.href='index.html';</script>";
                 }
             } else {
-                echo "Invalid email or password";
+                echo "<script>alert('Invalid email or password'); window.location.href='index.html';</script>";
             }
 
             $stmt->close();
             $conn->close();
-    } 
-    else {
-        echo "Verification failed. Please try again.";
+        } 
+        else {
+            echo "<script>alert('Verification failed. Please try again'); window.location.href='index.html';</script>";
+        }
     }
-}
 }
 ?>
 

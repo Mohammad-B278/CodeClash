@@ -1,3 +1,9 @@
+/*
+Used in challenge page for: code editor setup, code execution, test cases implementation, as well as 
+sharing data to the websocket 
+*/
+
+
 // Editor init
 require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs' } });
 
@@ -8,6 +14,16 @@ require(["vs/editor/editor.main"], function () {
         language: "python",
         theme: "vs-dark"
     });
+
+    const params = new URLSearchParams(window.location.search);
+    
+    getTemplate({
+        python: `class Solution:\n\tdef result(self, nums: {parameters}):\n\t\t# Write your code here\n`
+    }, params.get("questionID"), "python").then(updatedTemplate => {
+        if (editor) {
+            editor.setValue(updatedTemplate);
+        }
+    }).catch(error => console.error("Error fetching template:", error));
 });
 
 const socket = new WebSocket('ws://localhost:8080');
@@ -37,7 +53,7 @@ document.getElementById('language-select').addEventListener('change', function (
     const templates = {
         python: `class Solution:\n\tdef result(self, nums: {parameters}):\n\t\t# Write your code here\n`,
         javascript: `class Solution {\n\tresult(nums) {\n\t\t// Write your code here\n\t}\n}`,
-        cpp: `class Solution {\npublic:\n\t{return_type} result({parameters} nums) {\n\t// Write your code here\n\t\t}\n};`,
+        cpp: `class Solution {\npublic:\n\t{return_type} result({parameters} nums) {\n\t// Write your code here\n\t}\n};`,
         java: 'class Solution {\n\t{return_type} result({parameters} nums) {\n\t\t// Write your code here\n\t}\n}',
         csharp: 'class Solution {\n\tpublic {return_type} Result({parameters} nums) {\n\t\t// Write your code here\n\t}\n}',
     };
@@ -378,7 +394,6 @@ class Program {
         let expectedOutput = [];
         try {
             expectedOutput = JSON.parse(data.expected_output);
-            console.log("Raw expected_output data:", data.expected_output);
         } catch (error) {
             console.error("Error parsing expected_output:", error);
             expectedOutput = [];
@@ -394,7 +409,6 @@ class Program {
             output_type = Number.isInteger(expectedOutput[0]) ? "Integer" : "Float";       
         } else {
             output_type = 'Unknown Type';
-            console.log('Type: ', typeof expectedOutput[0]);
         }
 
         console.log("Determined output_type:", output_type);
@@ -402,10 +416,6 @@ class Program {
     } catch(error) {
         console.error("Error fetching or processing data for data_type:", error);
         alert("Something went wrong. Please try again later.");
-    } finally {
-        console.log("Before calling getParameters and getReturnType...");
-        console.log("outputType before getReturnType:", output_type);
-        console.log("inputType before getParameters:", input_type);
     }
 
     // Function to get return type based on language
@@ -436,7 +446,7 @@ class Program {
                 rust: "bool",
             },
             "Array": {
-                python: "List",
+                python: "list",
                 javascript: "Array",
                 cpp: "std::vector<int>",
                 java: "List<int>",
@@ -472,14 +482,14 @@ class Program {
                 csharp: "bool",
             },
             "Array": {
-                python: "List",
+                python: "list",
                 javascript: "Array",
                 cpp: "std::vector<int>",
                 java: "List<int>",
                 csharp: "List<int>",
             },
             "2D Array": {
-                python: "List[List[int]]",
+                python: "list[list[int]]",
                 javascript: "Array<Array<number>>",
                 cpp: "std::vector<std::vector<int>>",
                 java: "List<List<Integer>>",
@@ -489,20 +499,9 @@ class Program {
 
         return typeMapping[inputType]?.[language] || "void"; // Default to "void" if type not found
     }
-
-    console.log("Before using output_type:", output_type);
-    console.log("Before using input_type:", input_type);
-
-    console.log("Language:", language);
-    console.log("Template before replacement:", template);
-
-    console.log("Parameters:", getParameters(language, input_type));
-    console.log("Return Type:", getReturnType(language, output_type));
-
     
     template = template.replace("{parameters}", getParameters(language, input_type));
     template = template.replace("{return_type}", getReturnType(language, output_type));  // Default for statically typed languages 
-    console.log("Template after replacement:", template);
 
     return template;
     
@@ -530,6 +529,7 @@ document.getElementById('run-code').addEventListener('click', async function () 
     
     if (isRunning) return alert("Please wait for the previous execution to finish");
     isRunning = true;
+    document.getElementById('test-results').innerHTML = "Executing the code...";
     
     const language = (document.getElementById('language-select').value == "cpp") ? "c++" : document.getElementById('language-select').value;
     const code = editor.getValue();
@@ -559,14 +559,10 @@ document.getElementById('run-code').addEventListener('click', async function () 
     const testInputs = JSON.parse(data.test_cases);
     const expectedOutputs = JSON.parse(data.expected_output);
 
-    console.log("Test Inputs:", testInputs);
-    console.log("Expected Outputs:", expectedOutputs);
-
     let testResults = "";
 
     const lang = await fetch("https://emkc.org/api/v2/piston/runtimes");
     const languages = await lang.json();
-    console.log("Languages: ", languages)
     const executionVersion = languages
         .filter(l => l.language === String(language))
         .map(l => l.version);
@@ -574,7 +570,6 @@ document.getElementById('run-code').addEventListener('click', async function () 
     let lastRun = 0;
 
     for (let i = 0; i < testInputs.length; i++) {
-        console.log(`Test Inputs ${i}: ${String(testInputs[i])}`);
         try {
             
             let now = Date.now();
@@ -601,9 +596,7 @@ document.getElementById('run-code').addEventListener('click', async function () 
             });
 
             const result = await response.json();
-            console.log("Piston API Response:", result);
             let output = result.run.output;
-            console.log("Piston API Response:", output, result.run.output, result.run.stdout);
 
             output = output.trim().replace(/\s+/g, ' ');
             if (output === "True") output = "true";
@@ -634,7 +627,6 @@ document.getElementById('run-code').addEventListener('click', async function () 
         if (userId) {
             socket.send(JSON.stringify({ type: 'problem_solved', userId: userId }));
             
-            console.log("User ID:", userId);
             await fetch('solved.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -657,11 +649,9 @@ document.getElementById('run-code').addEventListener('click', async function () 
 // Websocket message
 socket.onmessage = (event) => {
     const message = JSON.parse(event.data);
-    console.log("Received message:", message);
 
     if (message.type === 'game_result') {
         if (message.opponent_disconnected) {
-            console.log("AAAAAA");
             if (confirm("Your opponent disconnected and you won. Do you want to return to the menu? (Cancel to keep solving)")) {
                 window.location.href = "queue.html";
             } else {
@@ -685,6 +675,7 @@ socket.onmessage = (event) => {
 document.getElementById('run-tests').addEventListener('click', async function () {
     if (isRunning) return alert("Please wait for the previous execution to finish");
     isRunning = true;
+    document.getElementById('test-results').innerHTML = "Executing the code...";
     
     let language;
     let testInputs;
@@ -744,9 +735,7 @@ document.getElementById('run-tests').addEventListener('click', async function ()
                 });
     
                 const result = await response.json();
-                console.log("Piston API Response:", result);
                 let output = result.run.output;
-                console.log("Piston API Response:", output, result.run.output, result.run.stdout);
     
                 output = output.trim().replace(/\s+/g, ' ');
                 if (output === "True") output = "true";

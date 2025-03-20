@@ -1,4 +1,9 @@
 <?php
+/*
+Updating all the data related to the question user solved in coding/challenge page
+*/
+
+
 session_start();
 require "db_config.php";
 

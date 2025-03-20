@@ -1,4 +1,9 @@
 <?php
+/*
+fetching leaderboard sorted by wins for the profile page
+*/
+
+
 session_start();
 header("Content-Type: application/json");
 require "db_config.php";
@@ -12,7 +17,6 @@ if (!isset($_SESSION['userid'])) {
 // fetching leaderboard details sorted by wins
 $sql = "SELECT userID, leaderboard_wins, leaderboard_problems FROM performance ORDER BY leaderboard_wins DESC"; 
 $stmt = $conn->prepare($sql);
-//$stmt->bind_param("i", $_SESSION['userid']);
 $stmt->execute();
 $result = $stmt->get_result();
 $userdetail = [];
@@ -24,7 +28,6 @@ while ($row = $result->fetch_assoc()) {
 // fetching username 
 $sql = "SELECT userID, username FROM users ORDER BY num_wins DESC"; 
 $stmt = $conn->prepare($sql);
-//$stmt->bind_param("i", $_SESSION['userid']);
 $stmt->execute();
 $result = $stmt->get_result();
 $username = [];

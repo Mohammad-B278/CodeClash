@@ -1,3 +1,9 @@
+<!-- 
+Login page for user to get into their account. If the user gets access to any of the 
+other pages without previously logging in, they get redirected here
+ -->
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +16,9 @@
 <body>
     <nav class="navbar">
         <div class="logo">
-            <img src="logo1.png" alt="CodeClash Logo">
+            <a href="index.html">
+                <img src="logo1.png" alt="CodeClash Logo">
+            </a>
         </div>
         <ul class="nav-links">
             <li><a href="signup_page.html">Sign Up</a></li>
@@ -36,5 +44,18 @@
             <div class="g-recaptcha" data-sitekey="6Le0n9IqAAAAAH1b3R79CiJm0mheXS4XeOEpTQ2K"></div>
         </form>          
     </div>
+
+    <script>
+        async function checkSession() {
+            const response = await fetch('session.php');
+            const data = await response.json();
+
+            if (data.logged_in) {
+                window.location.href = "homepage.html";
+            }
+        }
+        
+        checkSession()
+    </script>
 </body>
 </html>

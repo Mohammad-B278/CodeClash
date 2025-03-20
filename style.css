@@ -363,6 +363,7 @@ h3 span:last-child {
     text-align: center;
     font-size: 14px;
 }
+
 #custom-container {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -507,7 +508,7 @@ button:hover {
 }
 
 #questions-list li {
-    background: #216382;
+    background: #1d5b78;
     padding: 10px;
     margin: 8px 0;
     border-radius: 10px;
@@ -525,6 +526,22 @@ button:hover {
 }
 #questions-container h1 {
     color: #C0DA74; /* Header color */
+}
+
+/* Colour coding difficulties */
+.difficulty.easy {
+    color: rgb(15, 220, 15);
+    font-weight: bold;
+}
+
+.difficulty.medium {
+    color: orange;
+    font-weight: bold;
+}
+
+.difficulty.hard {
+    color: red;
+    font-weight: bold;
 }
 
 .sort-buttons {

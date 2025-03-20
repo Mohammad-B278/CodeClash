@@ -1,3 +1,8 @@
+<!-- 
+Page for users to get into the queue for PvP, as well as websocket setup
+ -->
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +15,9 @@
 <body>
     <nav class="navbar">
         <div class="logo">
-            <img src="logo1.png" alt="CodeClash Logo">
+            <a href="homepage.html">
+                <img src="logo1.png" alt="CodeClash Logo">
+            </a>
         </div>
         <ul class="nav-links">
             <li><a href="homepage.html">Home</a></li>
@@ -34,7 +41,7 @@
         const data = await response.json();
     
         if (!data.logged_in) {
-            window.location.href = "login_page.html";
+            window.location.href = "index.html";
         }
         }
         const socket = new WebSocket('ws://localhost:8080');

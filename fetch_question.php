@@ -1,4 +1,8 @@
 <?php
+/*
+Fetching question for the specific problem defined by specific pseudo element for challenge/coding pages
+*/
+
 header("Content-Type: application/json");
 require "db_config.php";
 
@@ -22,21 +26,6 @@ if ($result->num_rows == 0) {
 }
 
 $question = $result->fetch_assoc();
-
-/* // Fetching test cases
-$sql_test_cases = "SELECT input, expected_output FROM test_cases WHERE question_id = ?";
-$stmt = $conn->prepare($sql_test_cases);
-$stmt->bind_param("i", $question_id);
-$stmt->execute();
-$result_test_cases = $stmt->get_result();
-
-$test_cases = [];
-while ($row = $result_test_cases->fetch_assoc()) {
-    $test_cases[] = [
-        "input" => $row["input"],
-        "expected_output" => $row["expected_output"]
-    ];
-} */
 
 $response = [
     "title" => $question["title"],

@@ -1,4 +1,9 @@
 <?php
+/*
+fetching all the available achievements, as well as user's achievements, to use them on profile page
+*/
+
+
 session_start();
 header("Content-Type: application/json");
 require "db_config.php";
