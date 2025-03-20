@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+
+    <script>
+        let leaderboardData = [];
+        
+        function generate() {
+            const table = document.getElementById("boardbody");
+            table.innerHTML = "<tr><td colspan='4'>Loading data...</td></tr>"; // Show loading indicator
+
+            fetch("leaderboard.php")
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    table.innerHTML = ""; // Clear loading message
+                    
+                    if (data.error) {
+                        console.error("SQL Error:", data.error);
+                        table.innerHTML = `<tr><td colspan="4">Database error: ${data.error}</td></tr>`;
+                        return;
+                    }
+                    
+                    if (data.length === 0) {
+                        table.innerHTML = "<tr><td colspan='4'>No leaderboard data available</td></tr>";
+                        return;
+                    }
+
+                    // Save the data for sorting later
+                    leaderboardData = data;
+                    
+                    // By default, sort by wins
+                    sortLeaderboard('wins');
+                    
+                    console.log("Leaderboard data loaded successfully:", data);
+                })
+                .catch(error => {
+                    console.error("Error loading leaderboard:", error);
+                    table.innerHTML = `<tr><td colspan="4">Error: ${error.message}</td></tr>`;
+                });
+        }
+
+        function sortLeaderboard(sortBy) {
+            // Set active button
+            document.querySelectorAll('.sort-buttons button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(`sort-${sortBy}`).classList.add('active');
+            
+            // Sort the data
+            const sortedData = [...leaderboardData];
+            if (sortBy === 'wins') {
+                sortedData.sort((a, b) => b.wins - a.wins);
+            } else if (sortBy === 'problems') {
+                sortedData.sort((a, b) => b.problems_solved - a.problems_solved);
+            }
+            
+            // Display the sorted data
+            const table = document.getElementById("boardbody");
+            table.innerHTML = "";
+            
+            let count = 1;
+            sortedData.forEach(player => {
+                let row = `<tr>
+                    <td>${count}</td>
+                    <td>${player.username}</td>
+                    <td>${player.wins}</td>
+                    <td>${player.problems_solved}</td>
+                </tr>`;
+                table.innerHTML += row;
+                count++;
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            generate(); // Load leaderboard on page load
+        });
+    </script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logo1.png" alt="CodeClash Logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="homepage.html">Home</a></li>
+            <li><a href="queue.html">Online PvP</a></li>
+            <li><a href="questions.html">Challenges</a></li>
+            <li><a href="leaderboard.html">Leaderboard</a></li>
+            <li><a href="profile_page.html">Profile</a></li>
+            <li><a href="logout.php">Log Out</a></li>
+        </ul>
+    </nav>
+    <h2>Leaderboard</h2>
+    <p>Complete challenges to rise through the ranks and take your spot on the leaderboard!</p>
+    
+    <div class="sort-buttons">
+        <p>Sort by:</p>
+        <button id="sort-wins" class="active" onclick="sortLeaderboard('wins')">Most Wins</button>
+        <button id="sort-problems" onclick="sortLeaderboard('problems')">Most Problems Solved</button>
+    </div>
+    
+    <div class="board">
+        <table>
+            <thead>
+                <tr>
+                    <th>Position</th>
+                    <th>Username</th>
+                    <th>Wins</th>
+                    <th>Problems Solved</th>
+                </tr>
+            </thead>
+            <tbody id="boardbody">
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+<script>
+async function checkSession() {
+    const response = await fetch('session.php');
+    const data = await response.json();
+
+    if (!data.logged_in) {
+        window.location.href = "login_page.html";
+    }
+}
+</script>

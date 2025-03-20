@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Home</title>
+</head>
+
+<link rel="stylesheet" href="style.css">
+
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logo1.png" alt="CodeClash Logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="homepage.html">Home</a></li>
+            <li><a href="queue.html">Online PvP</a></li>
+            <li><a href="questions.html">Challenges</a></li>
+            <li><a href="leaderboard.html">Leaderboard</a></li>
+            <li><a href="profile_page.html">Profile</a></li>
+            <li><a href="logout.php">Log Out</a></li>
+        </ul>
+    </nav>
+
+	<h2>Welcome to Code Clash</h2>
+
+			<p>Code Clash is an interactive, competitive programming
+                 platform where coders go head-to-head in real-time coding duels.
+                  Inspired by LeetCode-style challenges, 
+                  this PvP experience lets you test your problem-solving
+                   skills against friends and rivals. Whether you're 
+                   sharpening your algorithms, preparing for technical 
+                   interviews, or just looking for an exciting way to code, 
+                   Code Clash offers a dynamic leaderboard, timed battles, 
+                   and a variety of challenges across different difficulty levels.
+                    Are you ready to prove your coding dominance? Jump in and start clashing!
+            </p> 
+
+    <div class="box-container">
+        <div class="box" onclick="location.href='queue.html'">
+            <h2>Online Pvp</h2>
+            <p>Challenge other coders in real-time battles!</p>
+
+        </div>
+        <div class="box" onclick="location.href='questions.html'">
+                <h2>Challenges</h2>
+                <p>Take on coding challenges and improve your skills!</p>
+
+        </div>
+        <div class="box" onclick="location.href='leaderboard.html'">
+            <h2>Leaderboard</h2>
+            <p>See how you rank against other coders!</p>
+
+        </div>
+
+    </div>
+</body>
+</html>
+<script>
+    async function checkSession() {
+        const response = await fetch('session.php');
+        const data = await response.json();
+    
+        if (!data.logged_in) {
+            window.location.href = "login_page.html";
+        }
+    }
+    </script>

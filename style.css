@@ -1,0 +1,604 @@
+body {
+    background-color: #0e0f1a;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+
+}
+/* Navigation Bar Stylong */
+.navbar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 20px;
+    background: #216382;
+    color: white;
+    height: 40px;
+
+}
+
+.logo {
+    max-width: 10px;
+    height: auto;
+    margin-right: auto;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin: 0 10px
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #D7BCE8;
+}
+/* Login box styling */
+.login-box {
+    position: absolute;
+    width: 385px;
+    height: auto;
+    padding: 20px 30px;
+    color: white;
+    text-align: left;
+    font-size: 16px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.1); 
+    border-radius: 10px;
+}
+/* Sign Up box styling */
+.signup-box {
+    position: absolute;
+    width: 385px;
+    height: auto;
+    padding: 20px 30px;
+    color: white;
+    text-align: left;
+    font-size: 16px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.1); 
+    border-radius: 10px;
+}
+/* Styling for the text boxes for user input */
+input {
+    width: 100%;  
+    max-width: 350px; 
+    background: #216382;
+    color: white;
+    font-size: 20px;
+}
+h2 {
+    color:#C0DA74;
+    text-align: center;
+    font-size: 30px;
+}
+.login-btn {
+    background-color: #C0DA74;
+    width: 100%;
+    max-width: 100px;
+    padding: 5px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.login-btn:hover {
+    background-color: #0e0f1a;
+}
+/* Styles the boxes on the homepage */
+.box-container {
+    display: flex; /* Aligns boxes in a row */
+    justify-content: center; 
+    gap: 40px;
+    margin-top: 30px;
+}
+
+.box {
+    width: 350px; 
+    height: 175px;
+    background-color: #216382; 
+    border-radius: 20px;
+    flex-direction: column; 
+    padding: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+.box:hover {
+    background: #5EB1BF; /* Darker green on hover */
+    transform: scale(1.05); /* Slight pop effect */
+}
+.box p{
+    font-size: 18px;
+}
+.home-link{
+    color:white;
+    font-size: 18px;
+}
+
+/* Center the table and apply rounded corners */
+.board {
+    margin: 30px auto; 
+    width: 80%;
+    max-width: 1200px; 
+    overflow-x: auto;
+    border-radius: 12px; 
+    border: 2px solid #216382; 
+    background-color: #5EB1BF; 
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse; /* Remove the space between borders */
+    border-radius: 12px; /* Rounded corners for the table */
+    overflow: hidden; /* Ensures rounded corners are visible */
+}
+
+/* Styling for table headers */
+th {
+    padding: 12px;
+    text-align: left;
+    background-color: #216382;
+    color: white;
+    font-size: 16px;
+    border-bottom: 2px solid #fff;
+}
+
+/* Alternate row colors */
+tr:nth-child(even) {
+    background-color: #465362; 
+}
+
+tr:nth-child(odd) {
+    background-color: #011936;
+}
+
+/* Table cell styling */
+td {
+    padding: 12px; 
+    text-align: left;
+    font-size: 14px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Table hover effect for rows */
+tr:hover {
+    background-color: #007bff; 
+}
+
+/* Button styling in dropdown */
+.dropbtn {
+    background-color: #C0DA74;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px; 
+    cursor: pointer;
+}
+.button-container {
+    display: flex;
+    justify-content: center; /* Horizontally center the button */
+    margin-bottom: 20px; /* Adds space between the button and the table */
+}
+/* Dropdown menu */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    
+}
+
+/* Dropdown content styling */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+/* Dropdown menu item styling */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+/* Dropdown hover effect */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #A4C88C; 
+}
+
+  
+p {
+      margin: 10px;
+      text-align: center;
+}
+
+/* Styling for the profile page */
+.flexbox-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px; /* Adds space between flex items */
+    padding: 20px;
+    width: 80%; /* Ensure it’s wide enough to hold the items side by side */
+    flex-wrap: wrap; /* Allow the items to wrap on smaller screens */
+    flex-direction: column;
+    margin: 20px auto;
+}
+
+.flexbox-achievement, .flexbox-something {
+    background-color: #216382;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    flex: 1; /* Makes them flexible within the flexbox container */
+    min-height: 250px; /* Ensure both sections have a minimum height */
+    max-width: 47%; /* Limit the max width to fit two items side by side */
+}
+
+.flexbox-leaderboard{
+    background-color: #216382;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    flex: 1; /* Makes them flexible within the flexbox container */
+    min-height: 515px; /* Ensure both sections have a minimum height */
+    max-width: 48%; /* Limit the max width to fit two items side by side */
+    margin-left: 50%;
+    margin-top: -570px;
+}
+.flexbox-leaderboard h3 {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background: #011936;
+    padding: 5px 0px;
+    margin: 5px 0;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.flexbox-leaderboard div {
+    width: 100%;
+}
+
+h3 span {
+    flex: 1;
+    text-align: center;
+}
+
+h3 span:first-child {
+    flex: 0.5; /* Rank column */
+}
+
+h3 span:last-child {
+    flex: 0.5; /* Wins column */
+}
+.leaderboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #C0DA74; /* Green background */
+    color: white; /* White text */
+    padding: 8px 0px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: left;
+    width: 90%;
+
+}
+.flexbox-leaderboard button {
+    margin-bottom: 10px; /* Adds space below buttons */
+}
+/* Styling for the profile section and uploading picture */
+.profile-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #16172b;
+    padding: 20px;
+    border-radius: 15px;
+    width: 80%;
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+
+}
+.profile-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+.profile-pic-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.profile-pic {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+}
+.upload-btn {
+    color: #00bfff;
+    cursor: pointer;
+    font-size: 14px;
+}
+.upload-btn:hover {
+    text-decoration: underline;
+}
+.user-details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.user-details h2 {
+    margin: 0;
+    font-size: 18px;
+}
+.stats {
+    display: flex;
+    gap: 20px;
+}
+.stat {
+    text-align: center;
+    font-size: 14px;
+}
+#custom-container {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    background-color: #f5f5f5;
+}
+
+#container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 20px;
+    width: 90%;
+    max-width: 1200px;
+    height: 95vh;
+    grid-template-areas:
+        "problem editor"
+        "testcase editor";
+    justify-content: center;
+    align-items: start;
+    font-size: small;
+    overflow: hidden; 
+}
+
+#problem-section {
+    grid-area: problem;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+    overflow-y: auto;
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+    color: black;
+    max-height: calc(90vh - 350px);
+}
+
+#problem-description {
+    text-align: left;    
+}
+
+#problem-section,
+#testcase-section,
+#editor-section {
+    align-self: stretch;
+
+}
+
+#editor-section {
+    grid-area: editor;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    max-height: 83%;
+}
+
+#editor {
+    flex-grow: 1;
+    border: 1px solid #ddd;
+    margin-top: 10px;
+    height: 400px;
+}
+
+#testcase-section {
+    grid-area: testcase;
+    margin: 0;
+    padding: 10px;
+    background: white;
+    overflow-y: auto;
+    max-height: calc(90vh - 340px);
+    
+}
+
+textarea {
+    width: 100%;
+    height: 75px;
+    
+    border: 1px solid #ddd;
+    font-family: monospace;
+    resize: none;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#test-results {
+    margin-top: 10px;
+    background: black;
+    padding: 10px;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+
+#questions-container {
+    background-color: #216382; /* Background color */
+    color: white; /* Default text color */
+    padding: 20px;
+    border-radius: 15px; /* Curved edges */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 60%;
+    max-width: 400px;
+    text-align: center;
+    margin-top: 20px;
+    margin: 30px auto;
+
+}
+
+/* Search bar and filter dropdown */
+#search-bar, #filter-dropdown {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+/* Styling for the question list */
+#questions-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#questions-list li {
+    background: #216382;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#questions-list li a {
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+}
+
+#questions-list li a:hover {
+    color: #C0DA74;
+}
+#questions-container h1 {
+    color: #C0DA74; /* Header color */
+}
+
+.sort-buttons {
+    margin-bottom: 15px;
+}
+.sort-buttons button {
+    padding: 8px 15px;
+    margin-right: 10px;
+    background-color: #007bff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.sort-buttons button.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.queue-container {
+    width: 50%;
+    margin: 50px auto;
+    padding: 20px;
+    text-align: center;
+    background-color: #1e1e2f;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #ffffff;
+}
+
+.queue-container h1 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    color: #C0DA74;
+}
+
+.queue-container button {
+    background-color: #216382;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.queue-container button:hover {
+    background-color: #007bff;
+    transform: scale(1.05);
+}
+
+#status {
+    font-size: 20px;
+    margin-top: 15px;
+    font-weight: bold;
+    color: white;
+}

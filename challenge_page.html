@@ -1,0 +1,110 @@
+<!-- 
+ 1. display the selected question and input field for user to writte code, 
+ 2. Dropdown for selecting the programming language
+ 3. A submit button to send the user's code to the backend for execution 
+ -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Clash</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs/loader.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logo1.png" alt="CodeClash Logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="homepage.html">Home</a></li>
+            <li><a href="queue.html">Online PvP</a></li>
+            <li><a href="questions.html">Challenges</a></li>
+            <li><a href="leaderboard.html">Leaderboard</a></li>
+            <li><a href="profile_page.html">Profile</a></li>
+            <li><a href="logout.php">Logout</a></li>
+        </ul>
+    </nav>
+    <div id="container">
+        <div id="problem-section">
+            <h2 id="problem-title">Problem Title</h2>
+            <p id="problem-description">Loading...</p>
+            <h3>Example:</h3>
+            <pre id="problem-example"><code>Loading...</code></pre>
+        </div>
+
+        <button id="return-menu" style="display: none;">Return to Menu</button>
+
+        <div id="editor-section">
+            <h2>Code Editor</h2>
+            <select id="language-select">
+                <option value="python">Python</option>
+                <option value="javascript">JavaScript</option>
+                <option value="cpp">C++</option>
+                <option value="java">Java</option>
+                <option value="csharp">C♯</option>
+                <option value="rust">Rust</option>
+            </select>
+            <div id="editor"></div>
+            <button id="run-code">Run Code</button>
+        </div>
+
+
+        <div id="testcase-section">
+            <h2>Test Cases</h2>
+            <textarea id="testcases"></textarea>
+            <button id="run-tests">Run Test Cases</button>
+            <div id="test-results"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('return-menu').addEventListener('click', () => {
+            window.location.href = "queue.html";
+        });
+
+        async function fetchQuestion() {
+            const params = new URLSearchParams(window.location.search);
+            const questionId = params.get("questionID");
+
+            if (!questionId) {
+                alert("No question selected!");
+                return;
+            }
+
+            const response = await fetch(`fetch_question.php?questionID=${questionId}`);
+            const data = await response.json();
+
+            if (data.error) {
+                alert(data.error);
+                return;
+            }
+
+            document.getElementById("problem-title").innerText = data.title;
+            document.getElementById("problem-description").innerText = data.description;
+            document.getElementById("problem-example").innerText = data.example;
+
+            const testCasesArray = JSON.parse(data.test_cases);
+            const testCases = JSON.stringify(testCasesArray.slice(0, 2));
+            document.getElementById("testcases").value = testCases;
+        }
+
+        async function checkSession() {
+            const response = await fetch('session.php');
+            const data = await response.json();
+
+            if (!data.logged_in) {
+                window.location.href = "login_page.html";
+            }
+        }
+
+        checkSession();
+        fetchQuestion();
+    </script>
+
+    <script src="script_pvp.js"></script>
+</body>
+</html>

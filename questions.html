@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Clash</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="logo1.png" alt="CodeClash Logo">
+            </div>
+            <ul class="nav-links">
+                <li><a href="homepage.html">Home</a></li>
+                <li><a href="queue.html">Online PvP</a></li>
+                <li><a href="questions.html">Challenges</a></li>
+                <li><a href="leaderboard.html">Leaderboard</a></li>
+                <li><a href="profile_page.html">Profile</a></li>
+                <li><a href="logout.php">Log Out</a></li>
+            </ul>
+        </nav>
+    <div id="questions-container">
+    <h1>Select a Question</h1>
+
+    <!-- Search + Filter -->
+    <input type="text" id="search-bar" placeholder="Search questions...">
+    <select id="filter-dropdown">
+        <option value="">All Types</option>
+    </select>
+
+    <ul id="questions-list"></ul>
+    </div>
+    <script>
+        let questions = []; // Array with the questions
+
+        async function fetchQuestions() {
+            try {
+                const response = await fetch("fetch_questions.php");
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                if (data.error) {
+                    console.error("Server Error:", data.error);
+                    document.getElementById("questions-list").innerHTML = `<li>${data.error}</li>`;
+                    return;
+                }
+
+                questions = data;
+
+                populateFilterDropdown();
+                displayQuestions();
+            } catch (error) {
+                console.error("Fetch Error:", error);
+                document.getElementById("questions-list").innerHTML = `<li>Error fetching questions. Check console for details.</li>`;
+            }
+        }
+
+        function populateFilterDropdown() {
+            const topics = new Set(questions.flatMap(q => q.topics.split(',').map(topic => topic.trim()))); // Creating set with all the types
+            const dropdown = document.getElementById("filter-dropdown");
+
+            topics.forEach(topic => {
+                const option = document.createElement("option");
+                option.value = topic;
+                option.textContent = topic;
+                dropdown.appendChild(option);
+            });
+        }
+
+        function displayQuestions() {
+            const searchQuery = document.getElementById("search-bar").value.toLowerCase();
+            const selectedType = document.getElementById("filter-dropdown").value;
+
+            const filteredQuestions = questions.filter(q => 
+                q.title.toLowerCase().includes(searchQuery) && 
+                (selectedType === "" || q.topics.includes(selectedType))
+            );
+
+            const list = document.getElementById("questions-list");
+            list.innerHTML = "";
+
+            filteredQuestions.forEach(q => {
+                const li = document.createElement("li");
+                li.innerHTML = `<a href="coding_page.html?questionID=${q.questionID}">${q.title}</a> | ${q.difficulty}`;
+                list.appendChild(li);
+            });
+        }
+
+        document.getElementById("search-bar").addEventListener("input", displayQuestions);
+        document.getElementById("filter-dropdown").addEventListener("change", displayQuestions);
+
+        fetchQuestions();
+
+        async function checkSession() {
+            const response = await fetch('session.php');
+            const data = await response.json();
+
+            if (!data.logged_in) {
+                window.location.href = "login_page.html";
+            }
+        }
+
+    </script>
+</body>
+</html>
