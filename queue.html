@@ -37,20 +37,20 @@ Page for users to get into the queue for PvP, as well as websocket setup
 
     <script>
         async function checkSession() {
-        const response = await fetch('session.php');
-        const data = await response.json();
-    
-        if (!data.logged_in) {
-            window.location.href = "index.html";
-        }
-        }
-        const socket = new WebSocket('ws://localhost:8080');
-        const queueButton = document.getElementById('joinQueue');
-        const statusText = document.getElementById('status');       
+            const response = await fetch('session.php');
+            const data = await response.json();
+        
+            if (!data.logged_in) {
+                window.location.href = "index.html";
+            }
+            }
+            const socket = new WebSocket('ws://localhost:8080');
+            const queueButton = document.getElementById('joinQueue');
+            const statusText = document.getElementById('status');       
 
-        if (localStorage.getItem("inQueue") === "true") {
-            queueButton.disabled = true;
-            statusText.innerText = "Searching for an opponent...";
+            if (localStorage.getItem("inQueue") === "true") {
+                queueButton.disabled = true;
+                statusText.innerText = "Searching for an opponent...";
         }
 
         queueButton.addEventListener('click', async () => {
