@@ -82,8 +82,9 @@ testcases and code execution
             document.getElementById("problem-description").innerText = data.description;
             document.getElementById("problem-example").innerText = data.example;
 
-            document.getElementById("testcases").value = data.test_cases; // For now like this, but obviously these 
-            // are actual test-cases we will use to run the code, so they shouldn't be there; this field will be empty in the future, keeping for reference just in case
+            const testCasesArray = JSON.parse(data.test_cases);
+            const testCases = JSON.stringify(testCasesArray.slice(0, 2));
+            document.getElementById("testcases").value = testCases;
         }
 
         async function checkSession() {

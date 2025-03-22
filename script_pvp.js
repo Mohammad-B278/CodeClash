@@ -723,7 +723,7 @@ document.getElementById('run-tests').addEventListener('click', async function ()
                     language: language,
                     version: String(executionVersion.sort().reverse()[0]),
                     files: [{ name: "code", content: finalCode }],
-                    stdin: String(testInputs[i]),
+                    stdin: JSON.stringify(testInputs[i]),
                 };
     
                 const response = await fetch('https://emkc.org/api/v2/piston/execute', {
