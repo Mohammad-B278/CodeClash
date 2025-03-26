@@ -647,11 +647,12 @@ document.getElementById('run-code').addEventListener('click', async function () 
 });
 
 // Websocket message
-socket.onmessage = (event) => {
+socket.onmessage = async (event) => {
     const message = JSON.parse(event.data);
-
+    const userId = await getUserID();
     if (message.type === 'game_result') {
         if (message.opponent_disconnected) {
+            await recordWin(userId);
             if (confirm("Your opponent disconnected and you won. Do you want to return to the menu? (Cancel to keep solving)")) {
                 window.location.href = "queue.html";
             } else {
@@ -659,6 +660,7 @@ socket.onmessage = (event) => {
             }
         } 
          else if (message.result === 'win') {
+            await recordWin(userId);
             alert("You won! Returning to the main menu");
             window.location.href = "queue.html";
         } else {
@@ -670,6 +672,27 @@ socket.onmessage = (event) => {
         }
     }
 };
+
+async function recordWin(userId) {
+    try {
+        const response = await fetch('win.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ userId })
+        });
+        console.log(`Win recorded for user ${userId}`);
+
+        if (!response.ok) {
+            throw new Error(`Request failed with status ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log(`Received response for user ${userId}:`, data);
+    } catch (error) {
+        console.error("Error recording win:", error);
+    }
+}
 
 // Testcase code, almost identical to run code
 document.getElementById('run-tests').addEventListener('click', async function () {

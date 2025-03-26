@@ -94,8 +94,6 @@ wss.on('connection', (ws) => {
                 opponent.send(JSON.stringify({ type: 'game_result', result: 'lose' }));
             }
 
-            await recordWin(winner.userId);
-
             activeMatches.delete(matchId);
         }
     });
@@ -125,31 +123,9 @@ wss.on('connection', (ws) => {
                         match.player1.send(JSON.stringify({ type: 'game_result', result: 'win', opponent_disconnected: true }));
                         match.winner = match.player1.userId;
                     }
-                    await recordWin(match.winner);
                     activeMatches.delete(matchId);
                 }
             }, 10000);
         }
     });
 });
-
-async function recordWin(userId) {
-    try {
-        const response = await fetch('http://localhost/CodeClash/win.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include',
-            body: JSON.stringify({ userId })
-        });
-        console.log(`Win recorded for user ${userId}`);
-
-        if (!response.ok) {
-            throw new Error(`Request failed with status ${response.status}`);
-        }
-
-        const data = await response.json();
-        console.log(`Received response for user ${userId}:`, data);
-    } catch (error) {
-        console.error("Error recording win:", error);
-    }
-}
