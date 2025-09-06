@@ -5,7 +5,7 @@ Fetching all the questions solved by user for profile page
 
 session_start();
 header("Content-Type: application/json");
-require "db_config.php";
+require __DIR__ . '/../config/db_config.php';
 
 // Check if the userID is valid
 if (!isset($_SESSION['userid'])) {

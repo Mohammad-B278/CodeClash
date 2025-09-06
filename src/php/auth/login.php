@@ -4,18 +4,29 @@ Checking login details for correctness for login page
 */
 
 
-include 'db_config.php';
+include __DIR__ . '/../config/db_config.php';
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $recaptcha_secret = "6Le0n9IqAAAAAAR3-gJDKzRYE-hVZZucrmZiGwkx";
+    $recaptcha_secret = getenv('RECAPCHA_SECRET') ?: "secret";
     $recaptcha_response = $_POST['g-recaptcha-response'];
-    $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$recaptcha_secret}&response={$recaptcha_response}");
+        
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, "https://www.google.com/recaptcha/api/siteverify");
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
+        'secret' => $recaptcha_secret,
+        'response' => $recaptcha_response
+    ]));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response = curl_exec($ch);
+    curl_close($ch);
+
     $response_keys = json_decode($response, true);
 
     // Check if reCAPTCHA was completed
     if (!isset($_POST['g-recaptcha-response']) || empty($_POST['g-recaptcha-response'])) {
-        echo "<script>alert('Error: reCAPTCHA verification is required'); window.location.href='index.html';</script>";
+        echo "<script>alert('Error: reCAPTCHA verification is required'); window.location.href='../../index.html';</script>";
         exit;
     }
 
@@ -26,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Input validation
             if (empty($email) || empty($password)) {
-                echo "<script>alert('You have to provide email and password'); window.location.href='index.html';</script>";
+                echo "<script>alert('You have to provide email and password'); window.location.href='../../index.html';</script>";
                 exit;
             }
 
@@ -47,19 +58,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     header('Location: homepage.html');
                     exit;
                 } else {
-                    echo "<script>alert('Invalid email or password'); window.location.href='index.html';</script>";
+                    echo "<script>alert('Invalid email or password'); window.location.href='../../index.html';</script>";
                 }
             } else {
-                echo "<script>alert('Invalid email or password'); window.location.href='index.html';</script>";
+                echo "<script>alert('Invalid email or password'); window.location.href='../../index.html';</script>";
             }
 
             $stmt->close();
             $conn->close();
         } 
         else {
-            echo "<script>alert('Verification failed. Please try again'); window.location.href='index.html';</script>";
+            echo "<script>alert('Verification failed. Please try again'); window.location.href='../../index.html';</script>";
         }
     }
 }
 ?>
-

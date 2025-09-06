@@ -5,7 +5,7 @@ Updating all the data related to the question user solved in coding/challenge pa
 
 
 session_start();
-require "db_config.php";
+require __DIR__ . '/../config/db_config.php';
 
 header("Content-Type: application/json");
 

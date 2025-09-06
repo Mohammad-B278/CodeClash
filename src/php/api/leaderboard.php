@@ -5,7 +5,7 @@ Fetching leaderboard data for leaderboard page
 
 
 header("Content-Type: application/json");
-require "db_config.php";
+require __DIR__ . '/../config/db_config.php';
 
 $sql = "SELECT 
             performance.userID, 

@@ -52,7 +52,7 @@ async function getTemplate(languageTemplates, questionId, language) {
     let output_type = '';
     try {
         // Fetching test case data from the server
-        const response = await fetch(`fetch_question.php?questionID=${questionId}`);
+        const response = await fetch(`../php/api/fetch_question.php?questionID=${questionId}`);
         if (!response.ok) {
             throw new Error(`Failed to fetch question. Status: ${response.status}`);
         }
@@ -483,7 +483,7 @@ class Program {
 }
 
 async function getUserID() {
-    const response = await fetch('session.php');
+    const response = await fetch('../php/auth/session.php');
     const data = await response.json();
     
     if (data.error) {
@@ -520,7 +520,7 @@ document.getElementById('run-code').addEventListener('click', async function () 
         return;
     }
 
-    const response = await fetch(`fetch_question.php?questionID=${questionId}`);
+    const response = await fetch(`../php/auth/fetch_question.php?questionID=${questionId}`);
     const data = await response.json();
 
     if (data.error) {
@@ -601,7 +601,7 @@ document.getElementById('run-code').addEventListener('click', async function () 
         if (userId) {
 
             console.log("User ID:", userId);
-            await fetch('solved.php', {
+            await fetch('../php/game/solved.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ userID: userId, questionID: questionId, attempts: attempt })

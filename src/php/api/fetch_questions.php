@@ -5,7 +5,7 @@ Fetching all the questions available for the questions page
 
 
 header("Content-Type: application/json");
-require "db_config.php"; // Include database connection
+require __DIR__ . '/../config/db_config.php'; // Include database connection
 
 // Fetch all questions
 $sql = "SELECT questionID, title, description, example, difficulty, topics FROM questions";

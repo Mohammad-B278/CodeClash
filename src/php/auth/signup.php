@@ -4,13 +4,24 @@ Checking signuo details for correctness for signup page and registering the user
 */
 
 
-include 'db_config.php';
+require __DIR__ . '/../config/db_config.php';
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $recaptcha_secret = "6Le0n9IqAAAAAAR3-gJDKzRYE-hVZZucrmZiGwkx";
+    $recaptcha_secret = getenv('RECAPCHA_SECRET') ?: "secret";;
     $recaptcha_response = $_POST['g-recaptcha-response'];
-    $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$recaptcha_secret}&response={$recaptcha_response}");
+    
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, "https://www.google.com/recaptcha/api/siteverify");
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
+        'secret' => $recaptcha_secret,
+        'response' => $recaptcha_response
+    ]));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response = curl_exec($ch);
+    curl_close($ch);
+
     $response_keys = json_decode($response, true);
 
     // Check if reCAPTCHA was completed
@@ -29,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Validating inputs
             if (empty($fname) || empty($surname) || empty($username) || empty($email) || empty($password)) {
-                echo "<script>alert('All fields have to be filled'); window.location.href='signup_page.html';</script>";
+                echo "<script>alert('All fields have to be filled'); window.location.href='../pages/signup_page.html';</script>";
                 exit;
             }
 
@@ -40,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->store_result();
 
             if ($stmt->num_rows > 0) {
-                echo "<script>alert('All fields have to be filled'); window.location.href='signup_page.html';</script>";
+                echo "<script>alert('All fields have to be filled'); window.location.href='../pages/signup_page.html';</script>";
                 exit;
             }
             $stmt->close();
@@ -53,11 +64,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bind_param("sssss", $fname, $surname, $username, $email, $hashed_password);
 
             if ($stmt->execute()) {
-                header('Location: index.html');
+                header('Location: ../../index.html');
                 exit;
             } else {
                 error_log("Database error: " . $stmt->error); // I'm not sure we have access to this at any point, but should be there for best practices
-                echo "<script>alert('An error occurred. Please try again later'); window.location.href='signup_page.html';</script>";
+                echo "<script>alert('An error occurred. Please try again later'); window.location.href='../pages/signup_page.html';</script>";
             }
 
             $stmt->close();
@@ -66,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     } else {
         $response_json = json_encode($response_keys);
-        echo "<script>alert('Verification failed. Details: $response_json'); window.location.href='signup_page.html';</script>";
+        echo "<script>alert('Verification failed. Details: $response_json'); window.location.href='../pages/signup_page.html';</script>";
     }
 }
 ?>

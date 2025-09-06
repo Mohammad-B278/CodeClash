@@ -6,7 +6,7 @@ Fetching relevant user details for the stats in user page
 
 session_start();
 header("Content-Type: application/json");
-require "db_config.php";
+require __DIR__ . '/../config/db_config.php';
 
 //checks the userID is valid
 if (!isset($_SESSION['userid'])) {

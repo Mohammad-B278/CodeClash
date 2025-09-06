@@ -6,7 +6,7 @@ fetching all the available achievements, as well as user's achievements, to use 
 
 session_start();
 header("Content-Type: application/json");
-require "db_config.php";
+require __DIR__ . '/../config/db_config.php';
 
 // Check if the userID is valid
 if (!isset($_SESSION['userid'])) {

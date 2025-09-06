@@ -69,7 +69,7 @@ async function getTemplate(languageTemplates, questionId, language) {
     let output_type = '';
     try {
         // Fetching test case data from the server
-        const response = await fetch(`fetch_question.php?questionID=${questionId}`);
+        const response = await fetch(`../php/api/fetch_question.php?questionID=${questionId}`);
         if (!response.ok) {
             throw new Error(`Failed to fetch question. Status: ${response.status}`);
         }
@@ -547,7 +547,7 @@ document.getElementById('run-code').addEventListener('click', async function () 
         return;
     }
 
-    const response = await fetch(`fetch_question.php?questionID=${questionId}`);
+    const response = await fetch(`../php/api/fetch_question.php?questionID=${questionId}`);
     const data = await response.json();
 
     if (data.error) {
@@ -627,7 +627,7 @@ document.getElementById('run-code').addEventListener('click', async function () 
         if (userId) {
             socket.send(JSON.stringify({ type: 'problem_solved', userId: userId }));
             
-            await fetch('solved.php', {
+            await fetch('../php/game/solved.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ userID: userId, questionID: questionId, attempts: attempt })
@@ -654,7 +654,7 @@ socket.onmessage = async (event) => {
         if (message.opponent_disconnected) {
             await recordWin(userId);
             if (confirm("Your opponent disconnected and you won. Do you want to return to the menu? (Cancel to keep solving)")) {
-                window.location.href = "queue.html";
+                window.location.href = "../pages/queue.html";
             } else {
                 alert("You can keep solving the problem");
             }
@@ -662,10 +662,10 @@ socket.onmessage = async (event) => {
          else if (message.result === 'win') {
             await recordWin(userId);
             alert("You won! Returning to the main menu");
-            window.location.href = "queue.html";
+            window.location.href = "../pages/queue.html";
         } else {
             if (confirm("Your opponent finished. Do you want to return to the menu? (Cancel to keep solving)")) {
-                window.location.href = "queue.html";
+                window.location.href = "../pages/queue.html";
             } else {
                 alert("You can keep solving the problem");
             }
@@ -675,7 +675,7 @@ socket.onmessage = async (event) => {
 
 async function recordWin(userId) {
     try {
-        const response = await fetch('win.php', {
+        const response = await fetch('../php/game/win.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',

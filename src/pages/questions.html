@@ -10,13 +10,13 @@ as search and filtering options
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code Clash</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
         <nav class="navbar">
             <div class="logo">
                 <a href="homepage.html">
-                    <img src="logo1.png" alt="CodeClash Logo">
+                    <img src="../assets/images/logo1.png" alt="CodeClash Logo">
                 </a>
             </div>
             <ul class="nav-links">
@@ -25,7 +25,7 @@ as search and filtering options
                 <li><a href="questions.html">Challenges</a></li>
                 <li><a href="leaderboard.html">Leaderboard</a></li>
                 <li><a href="profile_page.html">Profile</a></li>
-                <li><a href="logout.php">Log Out</a></li>
+                <li><a href="../php/auth/logout.php">Log Out</a></li>
             </ul>
         </nav>
     <div id="questions-container">
@@ -44,7 +44,7 @@ as search and filtering options
 
         async function fetchQuestions() {
             try {
-                const response = await fetch("fetch_questions.php");
+                const response = await fetch("../php/api/fetch_questions.php");
 
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -106,11 +106,11 @@ as search and filtering options
         fetchQuestions();
 
         async function checkSession() {
-            const response = await fetch('session.php');
+            const response = await fetch('../php/auth/session.php');
             const data = await response.json();
 
             if (!data.logged_in) {
-                window.location.href = "index.html";
+                window.location.href = "../../index.html";
             }
         }
 

@@ -8,14 +8,14 @@ and mini leaderboard for theu ser to see
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Page</title>
 </head>
 <body>
     <nav class="navbar">
         <div class="logo">
-            <img src="logo1.png" alt="CodeClash Logo">
+            <img src="../assets/images/logo1.png" alt="CodeClash Logo">
         </div>
         <ul class="nav-links">
             <li><a href="homepage.html">Home</a></li>
@@ -23,7 +23,7 @@ and mini leaderboard for theu ser to see
             <li><a href="questions.html">Challenges</a></li>
             <li><a href="leaderboard.html">Leaderboard</a></li>
             <li><a href="profile_page.html">Profile</a></li>
-            <li><a href="logout.php">Log Out</a></li>
+            <li><a href="../php/auth/logout.php">Log Out</a></li>
         </ul>
     </nav>
     <div class="profile-card">
@@ -161,7 +161,7 @@ and mini leaderboard for theu ser to see
 
     <script>
         async function fetchUserdetail() {
-            const response = await fetch(`fetch_userdetail.php`);
+            const response = await fetch(`../php/api/fetch_userdetail.php`);
             const data = await response.json();
 
             if (data.error) {
@@ -177,7 +177,7 @@ and mini leaderboard for theu ser to see
         }
 
         async function fetchleaderboardbyproblemsolved() {
-            const response = await fetch(`fetch_leaderboard.php`);
+            const response = await fetch(`../php/api/fetch_leaderboard.php`);
             const data = await response.json();
             let on_leaderboard = false;
 
@@ -218,11 +218,11 @@ and mini leaderboard for theu ser to see
 
 
         async function checkSession() {
-            const response = await fetch('session.php');
+            const response = await fetch('../php/auth/session.php');
             const data = await response.json();
 
             if (!data.logged_in) {
-                window.location.href = "index.html";
+                window.location.href = "../../index.html";
             }
         }
 
@@ -257,7 +257,7 @@ and mini leaderboard for theu ser to see
         }
 
         async function fetchleaderboardbywins() {
-            const response = await fetch(`fetch_leaderboard_by_wins.php`);
+            const response = await fetch(`../php/api/fetch_leaderboard_by_wins.php`);
             const data = await response.json();
             let on_leaderboard = false;
 
@@ -288,7 +288,7 @@ and mini leaderboard for theu ser to see
         }
 
         async function displayachievements() {
-            const response = await fetch(`fetch_achievements.php`);
+            const response = await fetch(`../php/api/fetch_achievements.php`);
             const data = await response.json();
             
 
@@ -307,7 +307,7 @@ and mini leaderboard for theu ser to see
                 
                 // Check for user achievement
                 var achieved = data.user_achievements.includes(achievement)
-                var imageSrc = achieved ? "check.png" : "cross.png"; 
+                var imageSrc = achieved ? "../assets/images/check.png" : "../assets/images/cross.png"; 
                 // Add the achievement to the table row
                 row.innerHTML += `
                     <td style="border: 1px solid black; padding: 8px;">${achievement}</td>
@@ -331,7 +331,7 @@ and mini leaderboard for theu ser to see
         }
 
         async function displayquestions() {
-            const response = await fetch(`fetch_questions_solved.php`);
+            const response = await fetch(`../php/api/fetch_questions_solved.php`);
             const data = await response.json();
 
             var tableBody = document.getElementById("table-body-questions-solved");

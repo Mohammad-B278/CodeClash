@@ -4,7 +4,7 @@ Fetching question for the specific problem defined by specific pseudo element fo
 */
 
 header("Content-Type: application/json");
-require "db_config.php";
+require __DIR__ . '/../config/db_config.php';
 
 if (!isset($_GET["questionID"])) {
     echo json_encode(["error" => "No question ID provided."]);

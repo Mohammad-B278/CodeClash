@@ -6,7 +6,7 @@ fetching leaderboard sorted by wins for the profile page
 
 session_start();
 header("Content-Type: application/json");
-require "db_config.php";
+require __DIR__ . '/../config/db_config.php';
 
 //checks the userID is valid
 if (!isset($_SESSION['userid'])) {

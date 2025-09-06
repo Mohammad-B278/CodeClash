@@ -8,7 +8,7 @@ Page for users to get into the queue for PvP, as well as websocket setup
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <title>Matchmaking</title>
 </head>
 
@@ -16,7 +16,7 @@ Page for users to get into the queue for PvP, as well as websocket setup
     <nav class="navbar">
         <div class="logo">
             <a href="homepage.html">
-                <img src="logo1.png" alt="CodeClash Logo">
+                <img src="../assets/images/logo1.png" alt="CodeClash Logo">
             </a>
         </div>
         <ul class="nav-links">
@@ -25,7 +25,7 @@ Page for users to get into the queue for PvP, as well as websocket setup
             <li><a href="questions.html">Challenges</a></li>
             <li><a href="leaderboard.html">Leaderboard</a></li>
             <li><a href="profile_page.html">Profile</a></li>
-            <li><a href="logout.php">Log Out</a></li>
+            <li><a href="../php/auth/logout.php">Log Out</a></li>
         </ul>
     </nav>
     <div class="queue-container">    
@@ -37,16 +37,16 @@ Page for users to get into the queue for PvP, as well as websocket setup
 
     <script>
         async function checkSession() {
-            const response = await fetch('session.php');
+            const response = await fetch('../php/auth/session.php');
             const data = await response.json();
         
             if (!data.logged_in) {
-                window.location.href = "index.html";
+                window.location.href = "../../index.html";
             }
             }
             const socket = new WebSocket('ws://localhost:8080');
             const queueButton = document.getElementById('joinQueue');
-            const statusText = document.getElementById('status');       
+            const statusText = document.getElementById('status');
 
             if (localStorage.getItem("inQueue") === "true") {
                 queueButton.disabled = true;
@@ -56,7 +56,7 @@ Page for users to get into the queue for PvP, as well as websocket setup
         queueButton.addEventListener('click', async () => {
             if (queueButton.disabled) return; // Preventing connecting again
 
-            const response = await fetch('session.php');
+            const response = await fetch('../php/auth/session.php');
             const data = await response.json();
 
             if (!data.logged_in) {
