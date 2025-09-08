@@ -1,2 +1,9 @@
 # Ignore main .env file
 .env
+
+# Files related to phpdotenv and composer for php
+# vendor/
+# composer.phar
+
+# Files related to node.js
+# node_modules/

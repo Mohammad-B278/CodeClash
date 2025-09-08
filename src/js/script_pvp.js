@@ -508,7 +508,7 @@ class Program {
 }
 
 async function getUserID() {
-    const response = await fetch('session.php');
+    const response = await fetch('../php/auth/session.php');
     const data = await response.json();
     
     if (data.error) {

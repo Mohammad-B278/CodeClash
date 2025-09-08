@@ -520,7 +520,7 @@ document.getElementById('run-code').addEventListener('click', async function () 
         return;
     }
 
-    const response = await fetch(`../php/auth/fetch_question.php?questionID=${questionId}`);
+    const response = await fetch(`../php/api/fetch_question.php?questionID=${questionId}`);
     const data = await response.json();
 
     if (data.error) {

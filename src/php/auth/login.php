@@ -3,12 +3,16 @@
 Checking login details for correctness for login page
 */
 
+require __DIR__ . '/../../../vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../../');
+$dotenv->load();
 
 include __DIR__ . '/../config/db_config.php';
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $recaptcha_secret = getenv('RECAPCHA_SECRET') ?: "secret";
+    $recaptcha_secret = $_ENV['RECAPTCHA_SECRET'] ?? 'secret';
     $recaptcha_response = $_POST['g-recaptcha-response'];
         
     $ch = curl_init();
@@ -26,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Check if reCAPTCHA was completed
     if (!isset($_POST['g-recaptcha-response']) || empty($_POST['g-recaptcha-response'])) {
-        echo "<script>alert('Error: reCAPTCHA verification is required'); window.location.href='../../index.html';</script>";
+        echo "<script>alert('Error: reCAPTCHA verification is required'); window.location.href='../../../index.html';</script>";
         exit;
     }
 
@@ -37,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Input validation
             if (empty($email) || empty($password)) {
-                echo "<script>alert('You have to provide email and password'); window.location.href='../../index.html';</script>";
+                echo "<script>alert('You have to provide email and password'); window.location.href='../../../index.html';</script>";
                 exit;
             }
 
@@ -55,20 +59,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (password_verify($password, $hashed_password)) {
                     $_SESSION['userid'] = $userid;
                     $_SESSION['username'] = $username;
-                    header('Location: homepage.html');
+                    header('Location: ../../pages/homepage.html');
                     exit;
                 } else {
-                    echo "<script>alert('Invalid email or password'); window.location.href='../../index.html';</script>";
+                    echo "<script>alert('Invalid email or password'); window.location.href='../../../index.html';</script>";
                 }
             } else {
-                echo "<script>alert('Invalid email or password'); window.location.href='../../index.html';</script>";
+                echo "<script>alert('Invalid email or password'); window.location.href='../../../index.html';</script>";
             }
 
             $stmt->close();
             $conn->close();
         } 
         else {
-            echo "<script>alert('Verification failed. Please try again'); window.location.href='../../index.html';</script>";
+            echo "<script>alert('Verification failed. Please try again'); window.location.href='../../../index.html';</script>";
         }
     }
 }

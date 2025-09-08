@@ -8,7 +8,7 @@ other pages without previously logging in, they get redirected here
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="src/assets/css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -17,17 +17,17 @@ other pages without previously logging in, they get redirected here
     <nav class="navbar">
         <div class="logo">
             <a href="index.html">
-                <img src="logo1.png" alt="CodeClash Logo">
+                <img src="src/assets/images/logo1.png" alt="CodeClash Logo">
             </a>
         </div>
         <ul class="nav-links">
-            <li><a href="signup_page.html">Sign Up</a></li>
+            <li><a href="src/pages/signup_page.html">Sign Up</a></li>
         </ul>
     </nav>
     <div class="login-box">
         <h2>Login</h2>
     
-        <form action="login.php" method="POST">
+        <form action="src/php/auth/login.php" method="POST">
             <label for="email">Email:</label>
             <input type="text" id="email" name="email"
             pattern="[a-zA-Z0-9._%+]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,}" required>
@@ -47,11 +47,11 @@ other pages without previously logging in, they get redirected here
 
     <script>
         async function checkSession() {
-            const response = await fetch('session.php');
+            const response = await fetch('src/php/auth/session.php');
             const data = await response.json();
 
             if (data.logged_in) {
-                window.location.href = "homepage.html";
+                window.location.href = "src/pages/homepage.html";
             }
         }
         
