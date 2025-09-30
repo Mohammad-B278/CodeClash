@@ -2,7 +2,7 @@
 
 CodeClash is a full-stack web application developed as a first-year university team project. It's a platform designed for users to practice their coding skills, solve algorithmic challenges, and compete in real-time against other players.
 
-![CodeClash Home Page](<img width="1470" height="824" alt="Screenshot 2025-09-30 at 16 08 58" src="https://github.com/user-attachments/assets/e4e8c4f0-a3a5-4b14-bc2f-fa83f9f53816" />
+![CodeClash Home Page](<src/assets/images/Screenshot 2025-09-30 at 16.12.04.png>
 )
 
 ---
@@ -16,7 +16,7 @@ Even though some backend services are currently offline, the platform was design
 * **Real-Time PvP Mode**: A player-vs-player mode where users are matched to solve the same problem in real-time. This feature uses a Node.js server with WebSockets for instant communication between players.
 * **Live Leaderboard**: A leaderboard to rank users based on their ELO rating or total number of wins.
 * **User Profile Page**: A personal dashboard where users can view their statistics (like ELO and wins), see their solved problems, and view their earned achievements.
-![CodeClash Profile Page](<img width="1470" height="824" alt="Screenshot 2025-09-30 at 16 09 38" src="https://github.com/user-attachments/assets/a411f96b-ace2-4f5d-bb5f-a9fdc0ce1227" />)
+![CodeClash Profile Page](<src/assets/images/Screenshot 2025-09-30 at 16.12.21.png>)
 
 ---
 
